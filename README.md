@@ -1,27 +1,25 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.5**
+**Versão atual: Beta 0.0.6**
 
 Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urbano.
 
-## Beta 0.0.5
+## Beta 0.0.6
 
-- Removido o conflito entre rotação por CSS e `screen.orientation`
-- Tela em retrato não fica mais tentando girar repetidamente
-- Layout passa a se adaptar ao tamanho real da tela
-- Seleção de texto, callout e zoom acidental bloqueados durante a gameplay
-- Joystick lateral corrigido em relação à orientação da câmera
-- Movimento e rotação do player refinados
-- Pose com pistola refeita com os braços apontados para frente
-- Mira permanece alinhada ao centro da câmera
-- Controles a pé somem completamente ao entrar no carro
-- Veículo recebe interface própria: direção, freio, acelerador e sair
-- Colisão básica adicionada a prédios, árvores e postes
-- Player não atravessa carros nem prédios
-- NPCs fazem separação física simples entre si e desviam de obstáculos
-- Carros param ao bater em prédios e outros carros
-- Carros empurram NPCs em baixa velocidade e causam atropelamento em velocidade maior
-- Beta 0.0.5 visível no HUD e na tela de carregamento
+- Tráfego autônomo adicionado ao mapa
+- NPCs passam a ser associados aos veículos de tráfego como motoristas
+- Sete carros de tráfego circulando pelas vias
+- Veículos reduzem/paralisam quando existe outro carro diretamente à frente
+- Colisão dos carros refeita usando o volume inteiro do veículo
+- Frente, traseira e laterais passam a bloquear corretamente o player e NPCs
+- Colisão carro x carro usa pontos distribuídos pelo comprimento e largura do veículo
+- Colisão de veículos com prédios/postes/árvores usa vários pontos do chassi
+- Player não consegue mais entrar fisicamente na frente ou traseira do carro por causa de uma barreira apenas central
+- NPCs reconhecem o volume completo dos veículos ao caminhar
+- Spawn seguro continua ativo
+- HUD refinado e mais compacto
+- Indicador de quantidade de tráfego adicionado ao HUD
+- Ajustes de iluminação, fog, contraste e materiais
 
 ## Recursos atuais
 
@@ -30,10 +28,11 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 - Correr e agachar
 - Entrada e saída de veículos
 - Câmera interna do veículo
+- Tráfego autônomo
 - Faixas de pedestre e semáforos
 - NPCs circulando por calçadas e atravessando pelas faixas
 - Memórias dos NPCs persistidas em `localStorage`
-- Colisão física básica entre elementos principais do mundo
+- Colisão física entre player, NPCs, carros e elementos sólidos do mapa
 
 ## Controles PC
 
@@ -43,13 +42,12 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 - `F`: alternar soco/pistola
 - Clique esquerdo: socar ou atirar
 - Botão direito + arrastar: câmera
-- Scroll: zoom
 - `E`: entrar/sair do carro
 - `Q`: memória do NPC
 
 ## Mobile
 
-O jogo se adapta ao tamanho e à orientação reais da tela. Não tenta mais rotacionar artificialmente o navegador, evitando o efeito de tela pulando no Safari/iPhone. Em landscape o HUD usa o formato principal de gameplay; em portrait ele permanece utilizável sem loop de rotação.
+O jogo se adapta ao tamanho e à orientação reais da tela e possui interfaces separadas para movimentação a pé e direção.
 
 ## Tecnologia
 
@@ -57,9 +55,9 @@ HTML/CSS/JavaScript + Three.js, preparado para execução no navegador e GitHub 
 
 ## Próximos marcos
 
-1. Física mais avançada e colisores orientados para veículos
-2. Animações e modelos 3D melhores
-3. Trânsito autônomo e respeito aos semáforos
+1. Trânsito fazendo curvas e respeitando semáforos de forma sincronizada
+2. Física mais avançada com resposta de impacto e massa
+3. Animações e modelos 3D melhores
 4. Polícia, crimes e nível de procurado
 5. Casas, lojas e interiores
 6. Inventário e múltiplas armas
