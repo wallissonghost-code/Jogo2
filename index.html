@@ -6,22 +6,22 @@
   <meta name="theme-color" content="#070b10" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Cidade Viva — Beta 0.0.4</title>
+  <title>Cidade Viva — Beta 0.0.5</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div id="loading-screen">
     <div class="loading-brand">CIDADE VIVA</div>
-    <div class="loading-version">BETA 0.0.4</div>
+    <div class="loading-version">BETA 0.0.5</div>
     <div class="loading-line"><span></span></div>
-    <div class="loading-tip">Carregando cidade, NPCs e tráfego...</div>
+    <div class="loading-tip">Preparando a cidade...</div>
   </div>
 
   <div id="landscape-shell">
     <div id="game"></div>
 
     <div id="hud">
-      <div class="version-pill">Beta 0.0.4</div>
+      <div class="version-pill">Beta 0.0.5</div>
 
       <div class="brand-card">
         <strong>CIDADE VIVA</strong>
@@ -46,32 +46,35 @@
     </div>
 
     <div id="mobile-controls">
-      <div id="joystick" class="joystick-zone">
-        <div class="joystick-ring"></div>
-        <div id="joystick-knob" class="joystick-knob"></div>
-      </div>
+      <div id="on-foot-controls">
+        <div id="joystick" class="joystick-zone">
+          <div class="joystick-ring"></div>
+          <div id="joystick-knob" class="joystick-knob"></div>
+        </div>
 
-      <div class="left-actions">
-        <button id="action-run" class="round-action" aria-label="Correr">🏃</button>
-        <button id="action-crouch" class="round-action" aria-label="Agachar">⬇</button>
-      </div>
+        <div class="left-actions">
+          <button id="action-run" class="round-action" aria-label="Correr">🏃</button>
+          <button id="action-crouch" class="round-action" aria-label="Agachar">⬇</button>
+        </div>
 
-      <div class="right-actions">
-        <button id="action-fire" class="main-action">SOCAR</button>
-        <button id="action-weapon" class="round-action wide">ARMA</button>
-        <button id="action-use" class="round-action wide">ENTRAR</button>
-        <button id="action-memory" class="round-action wide subtle">MEMÓRIA</button>
+        <div class="right-actions">
+          <button id="action-fire" class="main-action">SOCAR</button>
+          <button id="action-weapon" class="round-action wide">ARMA</button>
+          <button id="action-use" class="round-action wide">ENTRAR</button>
+          <button id="action-memory" class="round-action wide subtle">MEMÓRIA</button>
+        </div>
       </div>
 
       <div id="car-controls" class="car-controls hidden">
         <div class="steer-row">
-          <button data-drive="left">◀</button>
-          <button data-drive="right">▶</button>
+          <button data-drive="left" aria-label="Virar à esquerda">◀</button>
+          <button data-drive="right" aria-label="Virar à direita">▶</button>
         </div>
         <div class="pedals">
-          <button data-drive="brake">FREIO</button>
+          <button data-drive="brake" class="brake">FREIO</button>
           <button data-drive="gas" class="gas">ACELERAR</button>
         </div>
+        <button id="car-exit" class="car-exit">SAIR</button>
       </div>
     </div>
   </div>
