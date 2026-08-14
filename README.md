@@ -1,21 +1,27 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.4**
+**Versão atual: Beta 0.0.5**
 
 Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urbano.
 
-## Beta 0.0.4
+## Beta 0.0.5
 
-- Câmera do player refeita com suavização e inércia controlada
-- Joystick analógico refeito com zona morta e velocidade progressiva
-- Movimento do personagem mais suave e rotação gradual
-- Área da câmera separada da área do joystick no touch
-- HUD mobile remodelado com visual mais profissional
-- Tela de carregamento adicionada
-- Jogo usa viewport lógico em landscape no celular
-- Em modo retrato, a interface inteira é rotacionada para executar horizontalmente
-- Tentativa automática de bloquear orientação em landscape quando o navegador permitir
-- Beta 0.0.4 visível no HUD
+- Removido o conflito entre rotação por CSS e `screen.orientation`
+- Tela em retrato não fica mais tentando girar repetidamente
+- Layout passa a se adaptar ao tamanho real da tela
+- Seleção de texto, callout e zoom acidental bloqueados durante a gameplay
+- Joystick lateral corrigido em relação à orientação da câmera
+- Movimento e rotação do player refinados
+- Pose com pistola refeita com os braços apontados para frente
+- Mira permanece alinhada ao centro da câmera
+- Controles a pé somem completamente ao entrar no carro
+- Veículo recebe interface própria: direção, freio, acelerador e sair
+- Colisão básica adicionada a prédios, árvores e postes
+- Player não atravessa carros nem prédios
+- NPCs fazem separação física simples entre si e desviam de obstáculos
+- Carros param ao bater em prédios e outros carros
+- Carros empurram NPCs em baixa velocidade e causam atropelamento em velocidade maior
+- Beta 0.0.5 visível no HUD e na tela de carregamento
 
 ## Recursos atuais
 
@@ -27,6 +33,7 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 - Faixas de pedestre e semáforos
 - NPCs circulando por calçadas e atravessando pelas faixas
 - Memórias dos NPCs persistidas em `localStorage`
+- Colisão física básica entre elementos principais do mundo
 
 ## Controles PC
 
@@ -42,7 +49,7 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 
 ## Mobile
 
-O jogo é desenhado para formato horizontal. Quando aberto com o aparelho em pé, o viewport do jogo é montado e rotacionado para landscape sem mostrar uma tela obrigando o usuário a girar o aparelho. Quando o navegador permitir, o jogo também tenta bloquear a orientação em landscape após a primeira interação.
+O jogo se adapta ao tamanho e à orientação reais da tela. Não tenta mais rotacionar artificialmente o navegador, evitando o efeito de tela pulando no Safari/iPhone. Em landscape o HUD usa o formato principal de gameplay; em portrait ele permanece utilizável sem loop de rotação.
 
 ## Tecnologia
 
@@ -50,7 +57,7 @@ HTML/CSS/JavaScript + Three.js, preparado para execução no navegador e GitHub 
 
 ## Próximos marcos
 
-1. Colisões físicas com prédios, postes e veículos
+1. Física mais avançada e colisores orientados para veículos
 2. Animações e modelos 3D melhores
 3. Trânsito autônomo e respeito aos semáforos
 4. Polícia, crimes e nível de procurado
