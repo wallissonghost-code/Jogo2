@@ -3,18 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-  <meta name="theme-color" content="#070b10" />
+  <meta name="theme-color" content="#05080c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <title>Cidade Viva — Beta 0.0.9</title>
-  <link rel="stylesheet" href="./styles009.css" />
+  <title>Cidade Viva — Beta 0.1.0</title>
+  <link rel="stylesheet" href="./styles010.css" />
 </head>
 <body>
-  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.0.9</div><div class="loading-line"><span></span></div><div class="loading-tip">Preparando modo landscape e cidade...</div></div>
-  <div id="landscape-shell"><div id="game"></div><div id="hud"><div class="version-pill">Beta 0.0.9</div><div class="brand-card"><strong>CIDADE VIVA</strong><small id="status">A pé • Soco</small><span id="traffic-status" class="traffic-chip">TRÁFEGO 7</span></div><div class="player-hud"><div id="weapon-hud" class="weapon-card"><span>👊</span><b id="weapon-name">Soco</b></div><div class="stat money"><span>DINHEIRO</span><b id="money">1.250</b></div><div class="stat health"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div></div><div id="vehicle-hud" class="vehicle-hud hidden"><div class="vehicle-speed"><span>VELOCIDADE</span><b id="vehicle-speed">0 km/h</b></div><div class="vehicle-meter"><span>VEÍCULO <b id="vehicle-health">100%</b></span><div class="vbar"><i id="vehicle-health-bar"></i></div></div><div class="vehicle-meter fuel"><span>COMBUSTÍVEL <b id="vehicle-fuel">100%</b></span><div class="vbar"><i id="vehicle-fuel-bar"></i></div></div></div><div id="npc-card" class="panel hidden"><div class="panel-title">MEMÓRIA DO NPC</div><div id="npc-name">—</div><div id="npc-state">—</div><div id="npc-memory"></div></div><div id="prompt"></div><div id="crosshair" class="hidden">+</div></div><div id="mobile-controls"><div id="on-foot-controls"><div id="joystick" class="joystick-zone"><div class="joystick-ring"></div><div id="joystick-knob" class="joystick-knob"></div></div><div class="left-actions"><button id="action-run" class="round-action">🏃</button><button id="action-crouch" class="round-action">⬇</button></div><div class="right-actions"><button id="action-fire" class="main-action">SOCAR</button><button id="action-weapon" class="round-action wide">ARMA</button><button id="action-use" class="round-action wide">ENTRAR</button><button id="action-memory" class="round-action wide subtle">MEMÓRIA</button></div></div><div id="car-controls" class="car-controls hidden"><div class="steer-row"><button data-drive="left">◀</button><button data-drive="right">▶</button></div><div class="pedals"><button data-drive="brake" class="brake">FREIO</button><button data-drive="gas" class="gas">ACELERAR</button></div><button id="car-exit" class="car-exit">SAIR</button></div></div></div>
-  <script type="module" src="./beta009-bootstrap.js"></script>
-  <script type="module" src="./beta008.js"></script>
+  <div id="loading-screen">
+    <div class="loading-brand">CIDADE VIVA</div>
+    <div class="loading-version">BETA 0.1.0</div>
+    <div class="loading-line"><span></span></div>
+    <div class="loading-tip">Inicializando mundo aberto...</div>
+  </div>
+
+  <div id="landscape-shell">
+    <div id="game"></div>
+
+    <div id="hud">
+      <div class="version-pill">Beta 0.1.0</div>
+      <div class="brand-card"><strong>CIDADE VIVA</strong><small id="status">A PÉ</small></div>
+
+      <div class="player-hud">
+        <div class="hud-card money"><span>DINHEIRO</span><b id="money">1.250</b></div>
+        <div class="hud-card"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div>
+      </div>
+
+      <div id="vehicle-hud" class="vehicle-hud hidden">
+        <div class="vehicle-speed"><span>VELOCIDADE</span><b id="vehicle-speed">0 km/h</b></div>
+        <div class="vehicle-meter"><span>INTEGRIDADE <b id="vehicle-health">100%</b></span><div class="vbar"><i id="vehicle-health-bar"></i></div></div>
+        <div class="vehicle-meter fuel"><span>COMBUSTÍVEL <b id="vehicle-fuel">100%</b></span><div class="vbar"><i id="vehicle-fuel-bar"></i></div></div>
+      </div>
+
+      <div id="prompt"></div>
+      <div id="crosshair" class="hidden"></div>
+    </div>
+
+    <div id="mobile-controls">
+      <div id="on-foot-controls">
+        <div id="joystick" class="joystick-zone"><div class="joystick-ring"></div><div id="joystick-knob" class="joystick-knob"></div></div>
+
+        <div class="left-actions">
+          <button id="action-run" class="action">CORRER</button>
+          <button id="action-crouch" class="action">AGACHAR</button>
+          <button id="action-prone" class="action">DEITAR</button>
+          <button id="action-jump" class="action">PULAR</button>
+        </div>
+
+        <button id="action-slot" class="slot-card"><span>EQUIPADO</span><b id="slot-name">SOCO</b></button>
+
+        <div class="right-actions">
+          <button id="action-fire" class="action main">GOLPE</button>
+          <button id="action-aim" class="action">MIRA</button>
+          <button id="action-bandage" class="action utility">CURAR</button>
+          <button id="action-use" class="action">ENTRAR</button>
+          <button id="action-slot-mobile" class="action" onclick="document.getElementById('action-slot').click()">TROCAR</button>
+        </div>
+      </div>
+
+      <div id="car-controls" class="car-controls hidden">
+        <div class="steer-row"><button data-drive="left">◀</button><button data-drive="right">▶</button></div>
+        <div class="pedals"><button data-drive="brake" class="brake">FREIO</button><button data-drive="gas" class="gas">ACELERAR</button></div>
+        <button id="car-exit" class="car-exit">SAIR</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Apps instalados usam orientation: landscape no manifest. Em browsers que permitem lock,
+    // tentamos aplicar landscape após a primeira interação sem rotacionar o DOM via CSS.
+    let requested=false;
+    async function requestLandscape(){if(requested)return;requested=true;try{if(document.documentElement.requestFullscreen&&!document.fullscreenElement)await document.documentElement.requestFullscreen({navigationUI:'hide'})}catch(e){}try{if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape')}catch(e){}}
+    addEventListener('pointerdown',requestLandscape,{once:true,passive:true});
+    addEventListener('touchstart',requestLandscape,{once:true,passive:true});
+  </script>
+  <script type="module" src="./beta010.js"></script>
 </body>
 </html>
