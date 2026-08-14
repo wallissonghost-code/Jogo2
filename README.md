@@ -1,25 +1,25 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.6**
+**Versão atual: Beta 0.0.7**
 
 Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urbano.
 
-## Beta 0.0.6
+## Beta 0.0.7
 
-- Tráfego autônomo adicionado ao mapa
-- NPCs passam a ser associados aos veículos de tráfego como motoristas
-- Sete carros de tráfego circulando pelas vias
-- Veículos reduzem/paralisam quando existe outro carro diretamente à frente
-- Colisão dos carros refeita usando o volume inteiro do veículo
-- Frente, traseira e laterais passam a bloquear corretamente o player e NPCs
-- Colisão carro x carro usa pontos distribuídos pelo comprimento e largura do veículo
-- Colisão de veículos com prédios/postes/árvores usa vários pontos do chassi
-- Player não consegue mais entrar fisicamente na frente ou traseira do carro por causa de uma barreira apenas central
-- NPCs reconhecem o volume completo dos veículos ao caminhar
-- Spawn seguro continua ativo
-- HUD refinado e mais compacto
-- Indicador de quantidade de tráfego adicionado ao HUD
-- Ajustes de iluminação, fog, contraste e materiais
+- Árvores agora podem ser derrubadas por impacto de veículos
+- Veículos recebem vida própria e dano por colisão
+- Carros podem ficar avariados e explodir ao chegar a 0 de integridade
+- Colisões carro x carro causam dano proporcional ao impacto
+- Colisões carro x prédio/poste/árvore também danificam o veículo
+- Player atropelado perde vida conforme a velocidade do impacto
+- NPC atropelado perde vida e pode morrer conforme a força da colisão
+- Player morto entra em estado de recuperação e reaparece em spawn seguro
+- Saída de veículo refeita com múltiplos pontos de saída ao redor do carro
+- Se nenhuma saída estiver livre, o player é enviado automaticamente para um spawn seguro
+- Estado do joystick e controles de direção é zerado ao sair do carro para evitar travamento
+- Validação inicial procura carros sobrepostos, carros dentro de objetos e NPCs presos
+- NPCs que aparecem dentro de obstáculos são reposicionados para pontos seguros
+- Tráfego continua com sete carros e NPCs motoristas
 
 ## Recursos atuais
 
@@ -28,7 +28,10 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 - Correr e agachar
 - Entrada e saída de veículos
 - Câmera interna do veículo
-- Tráfego autônomo
+- Tráfego autônomo com NPCs motoristas
+- Dano e explosão de veículos
+- Árvores derrubáveis
+- Dano por atropelamento
 - Faixas de pedestre e semáforos
 - NPCs circulando por calçadas e atravessando pelas faixas
 - Memórias dos NPCs persistidas em `localStorage`
@@ -56,9 +59,9 @@ HTML/CSS/JavaScript + Three.js, preparado para execução no navegador e GitHub 
 ## Próximos marcos
 
 1. Trânsito fazendo curvas e respeitando semáforos de forma sincronizada
-2. Física mais avançada com resposta de impacto e massa
+2. Sistema de polícia, crimes e nível de procurado
 3. Animações e modelos 3D melhores
-4. Polícia, crimes e nível de procurado
+4. Física com massa, derrapagem e resposta de impacto mais avançada
 5. Casas, lojas e interiores
 6. Inventário e múltiplas armas
 7. Diálogos e rotina diária dos NPCs
