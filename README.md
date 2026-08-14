@@ -1,27 +1,31 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.3**
+**Versão atual: Beta 0.0.4**
 
 Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urbano.
 
-## Beta 0.0.3
+## Beta 0.0.4
 
-- HUD remodelado para jogo em tela horizontal
-- Versão visível no canto superior esquerdo
+- Câmera do player refeita com suavização e inércia controlada
+- Joystick analógico refeito com zona morta e velocidade progressiva
+- Movimento do personagem mais suave e rotação gradual
+- Área da câmera separada da área do joystick no touch
+- HUD mobile remodelado com visual mais profissional
+- Tela de carregamento adicionada
+- Jogo usa viewport lógico em landscape no celular
+- Em modo retrato, a interface inteira é rotacionada para executar horizontalmente
+- Tentativa automática de bloquear orientação em landscape quando o navegador permitir
+- Beta 0.0.4 visível no HUD
+
+## Recursos atuais
+
 - Dinheiro e vida no HUD
-- Troca entre soco e pistola
+- Soco e pistola
 - Correr e agachar
-- Joystick mobile analógico
-- Controles mobile específicos para dirigir
-- Botão Entrar/Sair dinâmico
-- Câmera do jogador refeita
-- Câmera interna do veículo refeita
-- Geometria dos carros corrigida
-- Faixas de pedestre refeitas
-- Semáforos adicionados às travessias
-- Árvores reposicionadas apenas nas áreas de calçada
-- NPCs priorizam calçadas e atravessam usando rotas de faixa
-- Atropelamento continua possível quando um NPC estiver efetivamente na travessia
+- Entrada e saída de veículos
+- Câmera interna do veículo
+- Faixas de pedestre e semáforos
+- NPCs circulando por calçadas e atravessando pelas faixas
 - Memórias dos NPCs persistidas em `localStorage`
 
 ## Controles PC
@@ -38,7 +42,7 @@ Protótipo de jogo 3D em terceira pessoa inspirado em jogos de mundo aberto urba
 
 ## Mobile
 
-O layout é projetado para **modo paisagem**. Em modo retrato, o jogo solicita que o aparelho seja girado.
+O jogo é desenhado para formato horizontal. Quando aberto com o aparelho em pé, o viewport do jogo é montado e rotacionado para landscape sem mostrar uma tela obrigando o usuário a girar o aparelho. Quando o navegador permitir, o jogo também tenta bloquear a orientação em landscape após a primeira interação.
 
 ## Tecnologia
 
