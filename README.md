@@ -1,78 +1,71 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.9**
+**Versão atual: Beta 0.1.0**
 
 Protótipo de jogo 3D de mundo aberto urbano.
 
-## Beta 0.0.9
+## Beta 0.1.0
 
-- Corrigido o z-fighting que fazia o chão verde piscar por cima das ruas
-- Terreno, asfalto e faixas passam a usar alturas separadas no eixo Y
-- Inicialização mobile preparada para landscape
-- Manifest do jogo agora declara orientação `landscape`
-- Em navegadores compatíveis, fullscreen + orientation lock são solicitados na primeira interação
-- Em iPhone/Safari, onde o navegador pode bloquear o orientation lock, o jogo usa um fallback visual horizontal sem loop de rotação
-- Canvas e câmera passam a usar proporção lógica landscape também no fallback
-- Removido o comportamento de tela pulando ao tentar alternar orientação repetidamente
+- Núcleo da gameplay reorganizado para reduzir os remendos acumulados das versões 0.0.x
+- HUD mobile redesenhado sem emojis e com linguagem visual mais próxima de jogos de ação
+- Player possui seleção entre soco, pistola e bandagem
+- Adicionados controles dedicados de ataque/tiro, mira, cura, correr, agachar, deitar e pular
+- Pistola usa mira em primeira pessoa quando o botão MIRA está ativo
+- Bandagens recuperam vida e possuem quantidade limitada
+- HUD mantém dinheiro e vida do player
+- Interface de direção continua separada da interface a pé
+- Veículo mantém velocímetro, integridade e combustível
+- Árvores e postes continuam derrubáveis
+- Dano de atropelamento continua proporcional ao impacto
+- Serviço de guincho refeito para utilizar a malha viária: o guincho nasce na rua, percorre a via até a região do acidente, posiciona-se, espera durante o processo de engate e só depois reboca a carcaça para fora do mapa
+- Carcaças destruídas não desaparecem imediatamente
+- Removida a rotação CSS do DOM inteiro que deixava o jogo lateral no Safari
+- Manifest PWA continua declarando `orientation: landscape` e `display: fullscreen`
+- Browsers que oferecem Orientation Lock recebem solicitação de landscape após a primeira interação
 
-## Beta 0.0.8
+## Orientação no iPhone
 
-- Atropelamento passou a usar faixas de dano por velocidade e intensidade do impacto
-- Impactos leves derrubam NPCs por alguns segundos e permitem que eles levantem feridos
-- Impactos médios empurram e podem arremessar NPCs
-- Impactos muito fortes podem matar, mas um atropelamento comum não causa mais morte instantânea
-- Player recebe a mesma lógica de dano progressivo por impacto
-- Pistola usa câmera em primeira pessoa
-- Árvores, postes e semáforos podem cair quando atingidos com força suficiente
-- Veículos explodem quando a integridade chega a 0
-- Veículos possuem integridade, combustível e velocidade
-- HUD de direção mostra velocidade em km/h, vida do veículo e combustível
-- Carros destruídos permanecem na rua e são removidos por um guincho NPC
+O projeto é um jogo web. Instalado/adicionado à tela inicial como PWA, utiliza `display: fullscreen` e `orientation: landscape` do manifest. Aberto como uma aba normal do Safari, o navegador pode negar o bloqueio programático de orientação; nessa situação a Beta 0.1.0 mantém o layout íntegro em vez de rotacionar artificialmente toda a página.
 
 ## Recursos atuais
 
-- Dinheiro e vida do player
-- Soco e pistola
-- Câmera em primeira pessoa com arma
-- Correr e agachar
+- Vida e dinheiro
+- Soco, pistola e bandagem
+- Tiro e mira
+- Correr, agachar, deitar e pular
+- Câmera em primeira pessoa ao mirar com pistola
 - Veículos dirigíveis
-- Saúde, combustível e velocímetro dos veículos
-- Tráfego autônomo com NPCs motoristas
-- Dano, avarias e explosão de veículos
+- Integridade, combustível e velocímetro
+- Tráfego autônomo
+- Dano e explosão de veículos
 - Árvores e postes derrubáveis
 - Dano progressivo por atropelamento
-- Serviço de guincho para carros destruídos
-- Faixas de pedestre e semáforos
+- Serviço urbano de guincho
+- Faixas de pedestre
 - NPCs circulando pelo mapa
-- Colisão física entre player, NPCs, carros e elementos sólidos
+- Colisões entre player, NPCs, veículos e objetos sólidos
 
 ## Controles PC
 
 - `WASD`: mover / dirigir
-- `Shift`: correr
-- `C`: agachar
-- `F`: alternar soco/pistola
-- Clique esquerdo: socar ou atirar
-- Botão direito + arrastar: câmera
-- `E`: entrar/sair do carro
-
-## Mobile
-
-O jogo é projetado para landscape. Instalado como PWA, o manifest solicita landscape em fullscreen. Em navegadores que não liberam orientation lock, a interface usa um fallback horizontal estável.
+- `F`: trocar slot
+- `E`: entrar/sair de veículo
+- `Espaço`: pular
+- Arrastar câmera: olhar ao redor
 
 ## Tecnologia
 
-HTML/CSS/JavaScript + Three.js, preparado para execução no navegador e GitHub Pages.
+HTML/CSS/JavaScript + Three.js, preparado para GitHub Pages e instalação como PWA.
 
 ## Próximos marcos
 
-1. Tráfego fazendo curvas e respeitando semáforos de forma sincronizada
+1. Trânsito com curvas e semáforos sincronizados
 2. Polícia, crimes e nível de procurado
 3. Animações e modelos 3D melhores
-4. Física de veículos com massa e derrapagem
+4. Física automotiva com massa, derrapagem e suspensão
 5. Postos de combustível e oficinas
 6. Casas, lojas e interiores
-7. Inventário e múltiplas armas
+7. Inventário de armas
 8. Rotina diária e memória de longo prazo dos NPCs
 9. Economia e missões
 10. Multiplayer posteriormente
