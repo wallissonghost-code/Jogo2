@@ -8,14 +8,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <title>Cidade Viva — Beta 0.1.1</title>
+  <title>Cidade Viva — Beta 0.1.2</title>
   <link rel="stylesheet" href="./styles011.css" />
 </head>
 <body>
-  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.1.1</div><div class="loading-line"><span></span></div><div class="loading-tip">Carregando balística e física...</div></div>
+  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.1.2</div><div class="loading-line"><span></span></div><div class="loading-tip">Carregando trânsito, serviços urbanos e balística...</div></div>
   <div id="landscape-shell"><div id="game"></div>
     <div id="hud">
-      <div class="version-pill">Beta 0.1.1</div>
+      <div class="version-pill">Beta 0.1.2</div>
       <div class="brand-card"><strong>CIDADE VIVA</strong><small id="status">A PÉ</small></div>
       <div class="player-hud"><div class="hud-card money"><span>DINHEIRO</span><b id="money">1.250</b></div><div class="hud-card"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div></div>
       <div id="ammo-hud" class="ammo-hud hidden"><span>PISTOLA</span><div><b id="ammo-mag">12</b><i>/</i><strong id="ammo-reserve">72</strong></div><small>CARREGADOR / RESERVA</small></div>
@@ -33,6 +33,6 @@
     </div>
   </div>
   <script>let requested=false;async function requestLandscape(){if(requested)return;requested=true;try{if(document.documentElement.requestFullscreen&&!document.fullscreenElement)await document.documentElement.requestFullscreen({navigationUI:'hide'})}catch(e){}try{if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape')}catch(e){}}addEventListener('pointerdown',requestLandscape,{once:true,passive:true});addEventListener('touchstart',requestLandscape,{once:true,passive:true});</script>
-  <script type="module" src="./beta011.js"></script>
+  <script type="module" src="./beta012.js"></script>
 </body>
 </html>
