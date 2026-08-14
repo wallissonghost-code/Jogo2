@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0f14" />
+  <title>Jogo2 — Cidade Viva</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="hud">
+    <div class="topbar">
+      <div>
+        <strong>CIDADE VIVA</strong>
+        <span class="badge">PROTÓTIPO 0.1</span>
+      </div>
+      <div id="status">A pé • Pistola</div>
+    </div>
+
+    <div id="npc-card" class="panel hidden">
+      <div class="panel-title">MEMÓRIA DO NPC</div>
+      <div id="npc-name">—</div>
+      <div id="npc-state">—</div>
+      <div id="npc-memory">Aproxime-se de um NPC e pressione Q.</div>
+    </div>
+
+    <div id="prompt"></div>
+    <div id="crosshair">+</div>
+
+    <div class="help desktop-help">
+      WASD mover • Shift correr • Arraste botão direito: câmera • Scroll: zoom • Clique: atirar • E: entrar/sair do carro • Q: memória do NPC
+    </div>
+  </div>
+
+  <div id="mobile-controls">
+    <div class="dpad">
+      <button data-key="KeyW">▲</button>
+      <div>
+        <button data-key="KeyA">◀</button>
+        <button data-key="KeyS">▼</button>
+        <button data-key="KeyD">▶</button>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="action-fire">ATIRAR</button>
+      <button id="action-use">ENTRAR</button>
+      <button id="action-memory">MEMÓRIA</button>
+    </div>
+  </div>
+
+  <script type="module" src="./game.js"></script>
+</body>
+</html>
