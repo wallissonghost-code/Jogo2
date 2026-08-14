@@ -1,0 +1,13 @@
+@import url('./styles011.css');
+:root{--hud-bg:rgba(7,11,15,.88);--hud-border:rgba(255,255,255,.10);--hud-muted:#8e99a3;--hud-gold:#e6b94d;--hud-green:#66d889}
+.version-pill,.brand-card,.hud-card,.ammo-hud,.vehicle-hud,.slot-card,.action,.car-controls button{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.version-pill{padding:6px 11px;border-radius:10px;background:var(--hud-bg);border-color:var(--hud-border);font-size:9px;letter-spacing:.12em;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.brand-card{min-width:156px;padding:10px 12px;border-radius:12px;background:linear-gradient(180deg,rgba(10,15,20,.92),rgba(5,9,13,.88));border-color:var(--hud-border);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.brand-card strong{font-size:11px;letter-spacing:.17em}.brand-card small{font-size:8px;letter-spacing:.08em}
+.player-hud{gap:6px}.hud-card{min-width:88px;padding:8px 10px;border-radius:11px;background:linear-gradient(180deg,rgba(12,18,23,.92),rgba(6,10,14,.88));border-color:var(--hud-border);box-shadow:0 8px 22px rgba(0,0,0,.16)}.hud-card span{font-size:6.5px}.hud-card b{font-size:12px}.money b{color:var(--hud-green)}
+.ammo-hud{border:1px solid var(--hud-border);background:linear-gradient(180deg,rgba(10,15,20,.94),rgba(5,9,13,.91));box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.action{background:linear-gradient(180deg,rgba(26,33,39,.94),rgba(8,12,16,.96));border-color:rgba(255,255,255,.13);font-size:7.5px;letter-spacing:.07em;text-shadow:0 1px 2px rgba(0,0,0,.5)}.action:active{transform:scale(.96);background:linear-gradient(180deg,rgba(42,51,59,.97),rgba(12,17,22,.98))}.action.main{border-color:rgba(230,185,77,.28)}
+.slot-card{background:linear-gradient(180deg,rgba(12,18,23,.94),rgba(6,10,14,.92));border-color:rgba(230,185,77,.18)}.slot-card b{color:#f5f7f9;letter-spacing:.08em}
+.joystick-ring{background:radial-gradient(circle,rgba(255,255,255,.06),rgba(7,11,15,.18));border-color:rgba(255,255,255,.17)}.joystick-knob{background:rgba(214,222,228,.22);border-color:rgba(255,255,255,.22);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+#prompt{background:rgba(5,8,12,.82);border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 22px rgba(0,0,0,.18)}
+@media(max-height:430px){.brand-card{min-width:145px}.version-pill{font-size:8px}.hud-card{min-width:80px}.action{font-size:7px}}
