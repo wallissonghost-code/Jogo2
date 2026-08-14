@@ -2,71 +2,77 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0f14" />
-  <title>Cidade Viva — Beta 0.0.3</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+  <meta name="theme-color" content="#070b10" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Cidade Viva — Beta 0.0.4</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div id="game"></div>
-
-  <div id="rotate-notice">
-    <div class="rotate-icon">↻</div>
-    <strong>GIRE O CELULAR</strong>
-    <span>Cidade Viva foi moldado para jogar com a tela deitada.</span>
+  <div id="loading-screen">
+    <div class="loading-brand">CIDADE VIVA</div>
+    <div class="loading-version">BETA 0.0.4</div>
+    <div class="loading-line"><span></span></div>
+    <div class="loading-tip">Carregando cidade, NPCs e tráfego...</div>
   </div>
 
-  <div id="hud">
-    <div id="version">Beta 0.0.3</div>
-    <div class="brand">CIDADE VIVA</div>
+  <div id="landscape-shell">
+    <div id="game"></div>
 
-    <div class="player-hud">
-      <div id="weapon-hud">👊 <span id="weapon-name">Soco</span></div>
-      <div id="money">R$ 1.250</div>
-      <div class="health"><span>VIDA</span><div><i id="health-bar"></i></div></div>
-    </div>
+    <div id="hud">
+      <div class="version-pill">Beta 0.0.4</div>
 
-    <div id="status">A pé • Soco</div>
-
-    <div id="npc-card" class="panel hidden">
-      <div class="panel-title">MEMÓRIA DO NPC</div>
-      <div id="npc-name">—</div>
-      <div id="npc-state">—</div>
-      <div id="npc-memory">Aproxime-se de um NPC e use MEMÓRIA.</div>
-    </div>
-
-    <div id="prompt"></div>
-    <div id="crosshair" class="hidden">+</div>
-
-    <div class="help desktop-help">
-      WASD mover • Shift correr • C agachar • F soco/arma • Clique atirar/golpear • E carro • Q memória
-    </div>
-  </div>
-
-  <div id="mobile-controls">
-    <div id="joystick" aria-label="Movimento">
-      <div id="joystick-knob"></div>
-    </div>
-
-    <div class="left-actions">
-      <button id="action-run">CORRER</button>
-      <button id="action-crouch">AGACHAR</button>
-    </div>
-
-    <div class="actions">
-      <button id="action-fire">SOCAR</button>
-      <button id="action-weapon">ARMA</button>
-      <button id="action-use">ENTRAR</button>
-      <button id="action-memory">MEMÓRIA</button>
-    </div>
-
-    <div id="car-controls" class="hidden">
-      <button data-drive="left">◀</button>
-      <div class="pedals">
-        <button data-drive="brake">FREIO / RÉ</button>
-        <button data-drive="gas">ACELERAR</button>
+      <div class="brand-card">
+        <strong>CIDADE VIVA</strong>
+        <small id="status">A pé • Soco</small>
       </div>
-      <button data-drive="right">▶</button>
+
+      <div class="player-hud">
+        <div id="weapon-hud" class="weapon-card"><span>👊</span><b id="weapon-name">Soco</b></div>
+        <div class="stat money"><span>R$</span><b id="money">1.250</b></div>
+        <div class="stat health"><span>VIDA</span><div class="bar"><i id="health-bar"></i></div></div>
+      </div>
+
+      <div id="npc-card" class="panel hidden">
+        <div class="panel-title">MEMÓRIA DO NPC</div>
+        <div id="npc-name">—</div>
+        <div id="npc-state">—</div>
+        <div id="npc-memory"></div>
+      </div>
+
+      <div id="prompt"></div>
+      <div id="crosshair" class="hidden">+</div>
+    </div>
+
+    <div id="mobile-controls">
+      <div id="joystick" class="joystick-zone">
+        <div class="joystick-ring"></div>
+        <div id="joystick-knob" class="joystick-knob"></div>
+      </div>
+
+      <div class="left-actions">
+        <button id="action-run" class="round-action" aria-label="Correr">🏃</button>
+        <button id="action-crouch" class="round-action" aria-label="Agachar">⬇</button>
+      </div>
+
+      <div class="right-actions">
+        <button id="action-fire" class="main-action">SOCAR</button>
+        <button id="action-weapon" class="round-action wide">ARMA</button>
+        <button id="action-use" class="round-action wide">ENTRAR</button>
+        <button id="action-memory" class="round-action wide subtle">MEMÓRIA</button>
+      </div>
+
+      <div id="car-controls" class="car-controls hidden">
+        <div class="steer-row">
+          <button data-drive="left">◀</button>
+          <button data-drive="right">▶</button>
+        </div>
+        <div class="pedals">
+          <button data-drive="brake">FREIO</button>
+          <button data-drive="gas" class="gas">ACELERAR</button>
+        </div>
+      </div>
     </div>
   </div>
 
