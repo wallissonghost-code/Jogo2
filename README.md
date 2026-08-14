@@ -1,51 +1,50 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.1.1**
+**Versão atual: Beta 0.1.2**
 
 Protótipo de jogo 3D de mundo aberto urbano.
+
+## Beta 0.1.2
+
+- Guincho passa a ter volume físico completo e não deve atravessar prédios, carros ou obstáculos
+- Guincho utiliza a mesma lógica de bloqueio frontal usada pelos veículos de tráfego
+- Serviço de guincho passa a circular pela malha viária até o local da ocorrência
+- Adicionada base/garagem do serviço de guincho no mapa
+- Depois do engate, a carcaça é levada de volta para a base antes da remoção definitiva
+- Atendimento do guincho mantém tempo de espera, aproximação, posicionamento e engate
+- Semáforos passam a ter três luzes: verde, amarelo e vermelho
+- Ciclo inicial: 8 s verde, 2 s amarelo e 8 s vermelho
+- Fluxos perpendiculares usam fases diferentes para reduzir cruzamentos simultâneos
+- Tráfego e guincho verificam o estado do semáforo à frente e param no amarelo/vermelho
+- Revisada a balística: projéteis visíveis causam 38 de dano em NPCs
+- NPC morre somente quando o HP chega a zero
+- Projéteis causam 10 de dano por acerto em veículos ainda não destruídos
+- Carcaças explodidas continuam sólidas até o serviço de guincho removê-las
 
 ## Beta 0.1.1
 
 - Carros destruídos continuam com colisão física completa até serem realmente removidos pelo guincho
-- A carcaça explodida fica escurecida/queimada, mas não vira um objeto atravessável
-- Colisões de outros veículos também reconhecem a carcaça como obstáculo
-- Pistola passa a existir fisicamente na mão do player
-- Disparo cria projétil visível no mundo em vez de apenas raycast invisível
-- Projétil pode atingir NPCs, veículos e objetos sólidos
-- Pistola usa carregador de 12 munições
-- Munição inicial: 12 no carregador + 72 de reserva
-- HUD de munição mostra carregador e reserva separadamente
-- Adicionado botão RECARREGAR no mobile
-- Tecla `R` recarrega no PC
-- Recarga transfere munição da reserva para o carregador e não cria munição do nada
-- Ao zerar o carregador, tentar atirar inicia recarga se ainda houver munição reserva
-
-## Beta 0.1.0
-
-- HUD mobile redesenhado sem emojis
-- Player possui soco, pistola e bandagem
-- Controles de ataque/tiro, mira, cura, correr, agachar, deitar e pular
-- Interface de direção separada
-- Veículos com velocímetro, integridade e combustível
-- Guincho usa a malha viária e leva tempo para atender uma ocorrência
-- Manifest PWA declara `orientation: landscape` e `display: fullscreen`
+- Pistola física na mão do player
+- Projéteis visíveis
+- Carregador de 12 munições + 72 de reserva
+- HUD de carregador/reserva e recarga
 
 ## Recursos atuais
 
 - Vida e dinheiro
 - Soco, pistola e bandagem
-- Pistola com carregador, reserva e recarga
-- Projéteis visíveis
-- Tiro e mira
+- Pistola com carregador, reserva, recarga e projéteis físicos
+- Tiro causa dano em NPCs e veículos
 - Correr, agachar, deitar e pular
 - Veículos dirigíveis
 - Carcaças destruídas sólidas
 - Integridade, combustível e velocímetro
 - Tráfego autônomo
+- Semáforos verde/amarelo/vermelho com ciclo temporal
 - Dano e explosão de veículos
 - Árvores e postes derrubáveis
 - Dano progressivo por atropelamento
-- Serviço urbano de guincho
+- Serviço urbano de guincho com base própria
 - NPCs e colisões físicas
 
 ## Controles PC
@@ -60,16 +59,3 @@ Protótipo de jogo 3D de mundo aberto urbano.
 ## Tecnologia
 
 HTML/CSS/JavaScript + Three.js, preparado para GitHub Pages e instalação como PWA.
-
-## Próximos marcos
-
-1. Trânsito com curvas e semáforos sincronizados
-2. Polícia, crimes e nível de procurado
-3. Animações e modelos 3D melhores
-4. Física automotiva com massa, derrapagem e suspensão
-5. Postos de combustível e oficinas
-6. Casas, lojas e interiores
-7. Inventário de armas
-8. Rotina diária e memória de longo prazo dos NPCs
-9. Economia e missões
-10. Multiplayer posteriormente
