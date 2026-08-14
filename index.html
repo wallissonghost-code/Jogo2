@@ -8,14 +8,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="mobile-web-app-capable" content="yes" />
   <link rel="manifest" href="./manifest.webmanifest" />
-  <title>Cidade Viva — Beta 0.1.5</title>
+  <title>Cidade Viva — Beta 0.1.6</title>
   <link rel="stylesheet" href="./styles014.css" />
 </head>
 <body>
-  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.1.5</div><div class="loading-line"><span></span></div><div class="loading-tip">Inicializando mundo...</div></div>
+  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.1.6</div><div class="loading-line"><span></span></div><div class="loading-tip">Inicializando mundo...</div></div>
   <div id="landscape-shell"><div id="game"></div>
     <div id="hud">
-      <div class="version-pill">Beta 0.1.5</div>
+      <div class="version-pill">Beta 0.1.6</div>
       <div class="brand-card"><strong>CIDADE VIVA</strong><small id="status">A PÉ</small></div>
       <div class="player-hud"><div class="hud-card money"><span>DINHEIRO</span><b id="money">1.250</b></div><div class="hud-card"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div></div>
       <div id="ammo-hud" class="ammo-hud hidden"><span>PISTOLA</span><div><b id="ammo-mag">12</b><i>/</i><strong id="ammo-reserve">72</strong></div><small>CARREGADOR / RESERVA</small></div>
@@ -29,9 +29,9 @@
         <button id="action-slot" class="slot-card"><span>EQUIPADO</span><b id="slot-name">SOCO</b></button>
         <div class="right-actions"><button id="action-fire" class="action main">GOLPE</button><button id="action-aim" class="action">MIRA</button><button id="action-reload" class="action">RECARREGAR</button><button id="action-bandage" class="action utility">CURAR</button><button id="action-use" class="action">ENTRAR</button><button id="action-slot-mobile" class="action" onclick="document.getElementById('action-slot').click()">TROCAR</button></div>
       </div>
-      <div id="car-controls" class="car-controls hidden"><div class="steer-row"><button data-drive="left">◀</button><button data-drive="right">▶</button></div><div class="pedals"><button data-drive="brake" class="brake">FREIO</button><button data-drive="gas" class="gas">ACELERAR</button></div><button id="car-exit" class="car-exit">SAIR</button></div>
+      <div id="car-controls" class="car-controls hidden"><div class="steer-row"><button data-drive="left">◀</button><button data-drive="right">▶</button></div><div class="pedals"><button data-drive="brake" class="brake">FREIO / RÉ</button><button data-drive="gas" class="gas">ACELERAR</button></div><button id="car-exit" class="car-exit">SAIR</button></div>
     </div>
   </div>
-  <script type="module" src="./game.js?v=015-stable"></script>
+  <script type="module" src="./game.js?v=016"></script>
 </body>
 </html>
