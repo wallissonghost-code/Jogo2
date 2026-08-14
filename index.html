@@ -2,51 +2,71 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#0b0f14" />
-  <title>Jogo2 — Cidade Viva</title>
+  <title>Cidade Viva — Beta 0.0.3</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div id="game"></div>
 
+  <div id="rotate-notice">
+    <div class="rotate-icon">↻</div>
+    <strong>GIRE O CELULAR</strong>
+    <span>Cidade Viva foi moldado para jogar com a tela deitada.</span>
+  </div>
+
   <div id="hud">
-    <div class="topbar">
-      <div>
-        <strong>CIDADE VIVA</strong>
-        <span class="badge">PROTÓTIPO 0.2</span>
-      </div>
-      <div id="status">A pé • Pistola</div>
+    <div id="version">Beta 0.0.3</div>
+    <div class="brand">CIDADE VIVA</div>
+
+    <div class="player-hud">
+      <div id="weapon-hud">👊 <span id="weapon-name">Soco</span></div>
+      <div id="money">R$ 1.250</div>
+      <div class="health"><span>VIDA</span><div><i id="health-bar"></i></div></div>
     </div>
+
+    <div id="status">A pé • Soco</div>
 
     <div id="npc-card" class="panel hidden">
       <div class="panel-title">MEMÓRIA DO NPC</div>
       <div id="npc-name">—</div>
       <div id="npc-state">—</div>
-      <div id="npc-memory">Aproxime-se de um NPC e pressione Q.</div>
+      <div id="npc-memory">Aproxime-se de um NPC e use MEMÓRIA.</div>
     </div>
 
     <div id="prompt"></div>
-    <div id="crosshair">+</div>
+    <div id="crosshair" class="hidden">+</div>
 
     <div class="help desktop-help">
-      WASD mover • Shift correr • Arraste botão direito: câmera • Scroll: zoom • Clique: atirar • E: entrar/sair do carro • Q: memória do NPC
+      WASD mover • Shift correr • C agachar • F soco/arma • Clique atirar/golpear • E carro • Q memória
     </div>
   </div>
 
   <div id="mobile-controls">
-    <div class="dpad">
-      <button data-key="KeyW">▲</button>
-      <div>
-        <button data-key="KeyA">◀</button>
-        <button data-key="KeyS">▼</button>
-        <button data-key="KeyD">▶</button>
-      </div>
+    <div id="joystick" aria-label="Movimento">
+      <div id="joystick-knob"></div>
     </div>
+
+    <div class="left-actions">
+      <button id="action-run">CORRER</button>
+      <button id="action-crouch">AGACHAR</button>
+    </div>
+
     <div class="actions">
-      <button id="action-fire">ATIRAR</button>
+      <button id="action-fire">SOCAR</button>
+      <button id="action-weapon">ARMA</button>
       <button id="action-use">ENTRAR</button>
       <button id="action-memory">MEMÓRIA</button>
+    </div>
+
+    <div id="car-controls" class="hidden">
+      <button data-drive="left">◀</button>
+      <div class="pedals">
+        <button data-drive="brake">FREIO / RÉ</button>
+        <button data-drive="gas">ACELERAR</button>
+      </div>
+      <button data-drive="right">▶</button>
     </div>
   </div>
 
