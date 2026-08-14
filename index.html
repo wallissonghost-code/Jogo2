@@ -6,79 +6,48 @@
   <meta name="theme-color" content="#070b10" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Cidade Viva — Beta 0.0.5</title>
+  <title>Cidade Viva — Beta 0.0.6</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div id="loading-screen">
     <div class="loading-brand">CIDADE VIVA</div>
-    <div class="loading-version">BETA 0.0.5</div>
+    <div class="loading-version">BETA 0.0.6</div>
     <div class="loading-line"><span></span></div>
-    <div class="loading-tip">Preparando a cidade...</div>
+    <div class="loading-tip">Carregando cidade e tráfego...</div>
   </div>
 
   <div id="landscape-shell">
     <div id="game"></div>
-
     <div id="hud">
-      <div class="version-pill">Beta 0.0.5</div>
-
+      <div class="version-pill">Beta 0.0.6</div>
       <div class="brand-card">
         <strong>CIDADE VIVA</strong>
         <small id="status">A pé • Soco</small>
+        <span id="traffic-status" class="traffic-chip">TRÁFEGO 7</span>
       </div>
-
       <div class="player-hud">
         <div id="weapon-hud" class="weapon-card"><span>👊</span><b id="weapon-name">Soco</b></div>
-        <div class="stat money"><span>R$</span><b id="money">1.250</b></div>
+        <div class="stat money"><span>DINHEIRO</span><b id="money">1.250</b></div>
         <div class="stat health"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div>
       </div>
-
-      <div id="npc-card" class="panel hidden">
-        <div class="panel-title">MEMÓRIA DO NPC</div>
-        <div id="npc-name">—</div>
-        <div id="npc-state">—</div>
-        <div id="npc-memory"></div>
-      </div>
-
-      <div id="prompt"></div>
-      <div id="crosshair" class="hidden">+</div>
+      <div id="npc-card" class="panel hidden"><div class="panel-title">MEMÓRIA DO NPC</div><div id="npc-name">—</div><div id="npc-state">—</div><div id="npc-memory"></div></div>
+      <div id="prompt"></div><div id="crosshair" class="hidden">+</div>
     </div>
 
     <div id="mobile-controls">
       <div id="on-foot-controls">
-        <div id="joystick" class="joystick-zone">
-          <div class="joystick-ring"></div>
-          <div id="joystick-knob" class="joystick-knob"></div>
-        </div>
-
-        <div class="left-actions">
-          <button id="action-run" class="round-action" aria-label="Correr">🏃</button>
-          <button id="action-crouch" class="round-action" aria-label="Agachar">⬇</button>
-        </div>
-
-        <div class="right-actions">
-          <button id="action-fire" class="main-action">SOCAR</button>
-          <button id="action-weapon" class="round-action wide">ARMA</button>
-          <button id="action-use" class="round-action wide">ENTRAR</button>
-          <button id="action-memory" class="round-action wide subtle">MEMÓRIA</button>
-        </div>
+        <div id="joystick" class="joystick-zone"><div class="joystick-ring"></div><div id="joystick-knob" class="joystick-knob"></div></div>
+        <div class="left-actions"><button id="action-run" class="round-action" aria-label="Correr">🏃</button><button id="action-crouch" class="round-action" aria-label="Agachar">⬇</button></div>
+        <div class="right-actions"><button id="action-fire" class="main-action">SOCAR</button><button id="action-weapon" class="round-action wide">ARMA</button><button id="action-use" class="round-action wide">ENTRAR</button><button id="action-memory" class="round-action wide subtle">MEMÓRIA</button></div>
       </div>
-
       <div id="car-controls" class="car-controls hidden">
-        <div class="steer-row">
-          <button data-drive="left" aria-label="Virar à esquerda">◀</button>
-          <button data-drive="right" aria-label="Virar à direita">▶</button>
-        </div>
-        <div class="pedals">
-          <button data-drive="brake" class="brake">FREIO</button>
-          <button data-drive="gas" class="gas">ACELERAR</button>
-        </div>
+        <div class="steer-row"><button data-drive="left" aria-label="Virar à esquerda">◀</button><button data-drive="right" aria-label="Virar à direita">▶</button></div>
+        <div class="pedals"><button data-drive="brake" class="brake">FREIO</button><button data-drive="gas" class="gas">ACELERAR</button></div>
         <button id="car-exit" class="car-exit">SAIR</button>
       </div>
     </div>
   </div>
-
-  <script type="module" src="./game.js"></script>
+  <script type="module" src="./beta006.js"></script>
 </body>
 </html>
