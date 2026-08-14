@@ -1,30 +1,36 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.1.3**
+**Versão atual: Beta 0.1.4**
 
 Protótipo de jogo 3D de mundo aberto urbano.
 
+## Beta 0.1.4
+
+- Revisão geral de tráfego e posicionamento inicial
+- NPCs são validados e reposicionados para calçadas quando necessário
+- Carros autônomos são realinhados para faixas de rua válidas
+- Todo carro autônomo passa a ter motorista NPC visível
+- Player pode roubar qualquer veículo inteiro e próximo, inclusive carros de tráfego e guinchos
+- Ao roubar um carro com NPC, o motorista deixa o controle do veículo
+- Guincho passa a ser roubável, receber dano e explodir como carro comum
+- Chamados de guincho passam a usar fila: apenas um atendimento ativo por vez
+- Se um guincho for roubado ou destruído durante um chamado, o serviço agenda outro atendimento
+- Guinchos verificam carros, NPCs, obstáculos e semáforos à frente
+- Corrigido dano contínuo ao manter o acelerador pressionado contra um obstáculo
+- Dano de colisão agora possui cooldown e é aplicado por evento de impacto, não a cada frame
+- HUD do player recebeu refinamento visual com cards menores, contraste melhor e controles mais consistentes
+
 ## Beta 0.1.3
 
-- Corrigido o serviço de guincho para usar um veículo real da classe `Car`
-- Guincho agora participa da mesma física e das mesmas colisões dos carros normais
-- Guincho não deve atravessar carros, prédios, postes ou carcaças
-- Guincho reduz e para quando encontra obstáculo, NPC ou veículo à frente
-- Guincho continua respeitando os semáforos do mapa
-- Adicionado NPC motorista visível dentro do guincho
-- Veículo de serviço possui HP e combustível próprios e pode sofrer colisões
-- Guincho continua saindo da base, indo até a ocorrência, engatando a carcaça e retornando para a base
-- Veículo de serviço não pode ser roubado/dirigido pelo player
-- Inicialização mobile revisada para priorizar landscape sem loop de rotação
-- Manifest continua configurado como `fullscreen` e `orientation: landscape`
+- Guincho passou a usar veículo da classe Car
+- NPC motorista visível no guincho
+- Colisões e física do guincho alinhadas com os demais veículos
 
 ## Beta 0.1.2
 
-- Base/garagem do guincho
-- Semáforos verde, amarelo e vermelho com ciclo temporal
-- Tráfego para em amarelo/vermelho
-- Projéteis causam dano em NPCs e veículos
-- Carcaças explodidas continuam sólidas
+- Base do guincho
+- Semáforos verde/amarelo/vermelho com ciclo temporal
+- Balística com dano em NPCs e veículos
 
 ## Recursos atuais
 
@@ -33,15 +39,16 @@ Protótipo de jogo 3D de mundo aberto urbano.
 - Pistola com carregador, reserva, recarga e projéteis físicos
 - Tiro causa dano em NPCs e veículos
 - Correr, agachar, deitar e pular
-- Veículos dirigíveis
+- Veículos dirigíveis e roubáveis
+- Motoristas NPC visíveis no tráfego
 - Carcaças destruídas sólidas
 - Integridade, combustível e velocímetro
 - Tráfego autônomo
-- Semáforos verde/amarelo/vermelho com ciclo temporal
+- Semáforos com ciclo temporal
 - Dano e explosão de veículos
 - Árvores e postes derrubáveis
 - Dano progressivo por atropelamento
-- Serviço urbano de guincho com base própria e NPC motorista
+- Serviço urbano de guincho com base própria
 - NPCs e colisões físicas
 
 ## Controles PC
