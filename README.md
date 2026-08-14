@@ -1,8 +1,19 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.0.8**
+**Versão atual: Beta 0.0.9**
 
 Protótipo de jogo 3D de mundo aberto urbano.
+
+## Beta 0.0.9
+
+- Corrigido o z-fighting que fazia o chão verde piscar por cima das ruas
+- Terreno, asfalto e faixas passam a usar alturas separadas no eixo Y
+- Inicialização mobile preparada para landscape
+- Manifest do jogo agora declara orientação `landscape`
+- Em navegadores compatíveis, fullscreen + orientation lock são solicitados na primeira interação
+- Em iPhone/Safari, onde o navegador pode bloquear o orientation lock, o jogo usa um fallback visual horizontal sem loop de rotação
+- Canvas e câmera passam a usar proporção lógica landscape também no fallback
+- Removido o comportamento de tela pulando ao tentar alternar orientação repetidamente
 
 ## Beta 0.0.8
 
@@ -11,17 +22,12 @@ Protótipo de jogo 3D de mundo aberto urbano.
 - Impactos médios empurram e podem arremessar NPCs
 - Impactos muito fortes podem matar, mas um atropelamento comum não causa mais morte instantânea
 - Player recebe a mesma lógica de dano progressivo por impacto
-- Pistola passa a usar câmera em primeira pessoa
-- Árvores continuam derrubáveis e postes/semáforos agora também podem cair quando atingidos com força suficiente
-- Veículos explodem quando a integridade chega exatamente a 0
-- Veículos agora possuem integridade, combustível e velocidade
+- Pistola usa câmera em primeira pessoa
+- Árvores, postes e semáforos podem cair quando atingidos com força suficiente
+- Veículos explodem quando a integridade chega a 0
+- Veículos possuem integridade, combustível e velocidade
 - HUD de direção mostra velocidade em km/h, vida do veículo e combustível
-- Combustível é consumido durante a condução e o carro perde aceleração ao chegar a zero
-- Carros destruídos permanecem fisicamente na rua por alguns segundos
-- Sistema de serviço urbano adiciona um guincho NPC para buscar veículos destruídos
-- Guincho aproxima, engata o veículo e o leva para fora do mapa antes da remoção definitiva
-- Tráfego continua com NPCs motoristas
-- Saída segura de veículos e colisões volumétricas continuam ativas
+- Carros destruídos permanecem na rua e são removidos por um guincho NPC
 
 ## Recursos atuais
 
@@ -52,7 +58,7 @@ Protótipo de jogo 3D de mundo aberto urbano.
 
 ## Mobile
 
-O jogo possui interfaces separadas para movimentação a pé e direção e se adapta ao tamanho real da tela.
+O jogo é projetado para landscape. Instalado como PWA, o manifest solicita landscape em fullscreen. Em navegadores que não liberam orientation lock, a interface usa um fallback horizontal estável.
 
 ## Tecnologia
 
