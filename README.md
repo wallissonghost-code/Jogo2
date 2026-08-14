@@ -1,33 +1,30 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.1.2**
+**Versão atual: Beta 0.1.3**
 
 Protótipo de jogo 3D de mundo aberto urbano.
 
+## Beta 0.1.3
+
+- Corrigido o serviço de guincho para usar um veículo real da classe `Car`
+- Guincho agora participa da mesma física e das mesmas colisões dos carros normais
+- Guincho não deve atravessar carros, prédios, postes ou carcaças
+- Guincho reduz e para quando encontra obstáculo, NPC ou veículo à frente
+- Guincho continua respeitando os semáforos do mapa
+- Adicionado NPC motorista visível dentro do guincho
+- Veículo de serviço possui HP e combustível próprios e pode sofrer colisões
+- Guincho continua saindo da base, indo até a ocorrência, engatando a carcaça e retornando para a base
+- Veículo de serviço não pode ser roubado/dirigido pelo player
+- Inicialização mobile revisada para priorizar landscape sem loop de rotação
+- Manifest continua configurado como `fullscreen` e `orientation: landscape`
+
 ## Beta 0.1.2
 
-- Guincho passa a ter volume físico completo e não deve atravessar prédios, carros ou obstáculos
-- Guincho utiliza a mesma lógica de bloqueio frontal usada pelos veículos de tráfego
-- Serviço de guincho passa a circular pela malha viária até o local da ocorrência
-- Adicionada base/garagem do serviço de guincho no mapa
-- Depois do engate, a carcaça é levada de volta para a base antes da remoção definitiva
-- Atendimento do guincho mantém tempo de espera, aproximação, posicionamento e engate
-- Semáforos passam a ter três luzes: verde, amarelo e vermelho
-- Ciclo inicial: 8 s verde, 2 s amarelo e 8 s vermelho
-- Fluxos perpendiculares usam fases diferentes para reduzir cruzamentos simultâneos
-- Tráfego e guincho verificam o estado do semáforo à frente e param no amarelo/vermelho
-- Revisada a balística: projéteis visíveis causam 38 de dano em NPCs
-- NPC morre somente quando o HP chega a zero
-- Projéteis causam 10 de dano por acerto em veículos ainda não destruídos
-- Carcaças explodidas continuam sólidas até o serviço de guincho removê-las
-
-## Beta 0.1.1
-
-- Carros destruídos continuam com colisão física completa até serem realmente removidos pelo guincho
-- Pistola física na mão do player
-- Projéteis visíveis
-- Carregador de 12 munições + 72 de reserva
-- HUD de carregador/reserva e recarga
+- Base/garagem do guincho
+- Semáforos verde, amarelo e vermelho com ciclo temporal
+- Tráfego para em amarelo/vermelho
+- Projéteis causam dano em NPCs e veículos
+- Carcaças explodidas continuam sólidas
 
 ## Recursos atuais
 
@@ -44,7 +41,7 @@ Protótipo de jogo 3D de mundo aberto urbano.
 - Dano e explosão de veículos
 - Árvores e postes derrubáveis
 - Dano progressivo por atropelamento
-- Serviço urbano de guincho com base própria
+- Serviço urbano de guincho com base própria e NPC motorista
 - NPCs e colisões físicas
 
 ## Controles PC
