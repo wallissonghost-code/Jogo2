@@ -5,7 +5,7 @@ const gameRoot=$('#game'),statusEl=$('#status'),promptEl=$('#prompt');
 const useButton=$('#action-use'),fireButton=$('#action-fire'),weaponButton=$('#action-weapon'),runButton=$('#action-run'),crouchButton=$('#action-crouch');
 const weaponNameEl=$('#weapon-name'),weaponHudEl=$('#weapon-hud'),crosshairEl=$('#crosshair');
 const npcCard=$('#npc-card'),npcNameEl=$('#npc-name'),npcStateEl=$('#npc-state'),npcMemoryEl=$('#npc-memory');
-const carControls=$('#car-controls'),onFootControls=$('#on-foot-controls'),carExitButton=$('#car-exit'),moneyEl=$('#money'),healthBar=$('#health-bar');
+const carControls=$('#car-controls'),onFootControls=$('#on-foot-controls'),carExitButton=$('#car-exit'),moneyEl=$('#money'),healthBar=$('#health-bar'),healthValue=$('#health-value');
 
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x8fb6cc);
@@ -64,7 +64,7 @@ function createWorld(){
 createWorld();
 
 function makePerson(color=0x20252d,skin=0xd2a27e){const g=new THREE.Group(),torso=box(.72,1.08,.38,mat(color),0,1.22,0),head=new THREE.Mesh(new THREE.SphereGeometry(.29,14,10),mat(skin)),lm=mat(0x202733),ll=box(.25,.82,.27,lm,-.19,.43,0),rl=box(.25,.82,.27,lm,.19,.43,0),la=box(.19,.9,.2,mat(color),-.46,1.25,0),ra=box(.19,.9,.2,mat(color),.46,1.25,0);head.position.y=2;head.castShadow=true;g.add(torso,head,ll,rl,la,ra);g.userData.parts={torso,head,ll,rl,la,ra};return g;}
-const player=makePerson(0x171b21,0xc98e6c);player.position.set(18,.18,18);scene.add(player);
+const player=makePerson(0x171b21,0xc98e6c);player.position.set(0,.18,0);scene.add(player);
 const gun=new THREE.Group();gun.add(box(.11,.13,.78,mat(0x151515,.5,.18),0,0,.38),box(.11,.31,.13,mat(0x202020),0,-.14,.08));gun.position.set(.28,1.38,.38);player.add(gun);gun.visible=false;
 let weapon='fist',crouched=false,running=false,health=100,money=1250,currentVehicle=null,lastShot=-99,inspectedNpc=null;
 const keys={},clock=new THREE.Clock();
@@ -73,7 +73,7 @@ const joystick={x:0,y:0,targetX:0,targetY:0,pointer:null};
 function applyPose(){const {la,ra}=player.userData.parts;if(weapon==='pistol'&&!currentVehicle){ra.rotation.set(1.12,0,.12);la.rotation.set(1.05,0,-.22);ra.position.set(.43,1.3,.12);la.position.set(-.34,1.31,.16);gun.position.set(.27,1.43,.5);gun.rotation.set(0,0,0);}else{ra.rotation.set(0,0,0);la.rotation.set(0,0,0);ra.position.set(.46,1.25,0);la.position.set(-.46,1.25,0);gun.rotation.set(0,0,0);}}
 function setWeapon(next){weapon=next;gun.visible=weapon==='pistol'&&!currentVehicle;weaponNameEl.textContent=weapon==='pistol'?'Pistola':'Soco';weaponHudEl.firstElementChild.textContent=weapon==='pistol'?'🔫':'👊';weaponButton.textContent=weapon==='pistol'?'SOCO':'ARMA';fireButton.textContent=weapon==='pistol'?'ATIRAR':'SOCAR';crosshairEl.classList.toggle('hidden',weapon!=='pistol'||!!currentVehicle);applyPose();updateStatus();}
 function toggleCrouch(){if(currentVehicle)return;crouched=!crouched;crouchButton.classList.toggle('active-action',crouched);player.scale.y=crouched?.72:1;updateStatus();}
-function updateStatus(){statusEl.textContent=currentVehicle?'Dirigindo':`${crouched?'Agachado':running?'Correndo':'A pé'} • ${weapon==='pistol'?'Pistola':'Soco'}`;moneyEl.textContent=money.toLocaleString('pt-BR');healthBar.style.width=`${health}%`;}
+function updateStatus(){statusEl.textContent=currentVehicle?'Dirigindo':`${crouched?'Agachado':running?'Correndo':'A pé'} • ${weapon==='pistol'?'Pistola':'Soco'}`;moneyEl.textContent=money.toLocaleString('pt-BR');healthBar.style.width=`${health}%`;if(healthValue)healthValue.textContent=`${Math.max(0,Math.round(health))}/100`;}
 
 const savedBrains=JSON.parse(localStorage.getItem('jogo2_npc_brains')||'{}'),npcNames=['Maya','Davi','Luna','Rico','Bia','Theo','Nina','Caio','Jade','Noah','Liz','Ivo'],npcColors=[0xb33b3b,0x315f95,0x5f3a81,0x496b45,0xc17a35,0x444a55,0x7e3f62],npcs=[];
 const nodeIndex=(bx,bz,slot)=>(bx*4+bz)*8+slot;
@@ -93,6 +93,8 @@ class Car{
   update(dt){if(currentVehicle!==this)return;const gas=(keys.KeyW?1:0)+(keys.DriveGas?1:0),brake=(keys.KeyS?1:0)+(keys.DriveBrake?1:0),steer=((keys.KeyA||keys.DriveLeft)?1:0)-((keys.KeyD||keys.DriveRight)?1:0);this.speed+=(gas-brake)*dt*9.5;this.speed*=Math.pow(.984,dt*60);this.speed=THREE.MathUtils.clamp(this.speed,-5,17);if(Math.abs(this.speed)>.25)this.group.rotation.y+=steer*dt*1.4*Math.sign(this.speed);const prev=this.group.position.clone(),f=new THREE.Vector3(Math.sin(this.group.rotation.y),0,Math.cos(this.group.rotation.y));this.group.position.addScaledVector(f,this.speed*dt);let blocked=!!hitsStatic(this.group.position,1.1);for(const other of cars)if(other!==this&&this.group.position.distanceTo(other.group.position)<2.0){blocked=true;break;}if(blocked){this.group.position.copy(prev);this.speed*=-.12;return;}if(!currentVehicle&&this.group.position.distanceTo(player.position)<1.4)player.position.addScaledVector(f,.08);for(const n of npcs){if(n.hp<=0)continue;const d=this.group.position.distanceTo(n.group.position);if(d<1.28){if(Math.abs(this.speed)>3.5){n.hit(Math.round(Math.min(100,Math.abs(this.speed)*7)));this.speed*=.45;}else{const push=n.group.position.clone().sub(this.group.position).setY(0);if(push.lengthSq()>.001)n.group.position.addScaledVector(push.normalize(),.12);this.speed*=.8;}}}}
 }
 const cars=[new Car(0xc62b2f,12,-4,0),new Car(0x245b82,-52,8,Math.PI/2),new Car(0xd08a26,67,-8,0),new Car(0x30343a,-7,62,Math.PI/2)];
+function placePlayerAtSafeSpawn(){const candidates=[[12,12],[-12,12],[12,-12],[-12,-12],[18,12],[-18,12],[12,18],[-12,-18]];for(const [x,z] of candidates){const p=new THREE.Vector3(x,.18,z);if(!hitsStatic(p,.55)&&cars.every(c=>p.distanceTo(c.group.position)>2.5)){player.position.copy(p);return;}}player.position.set(12,.18,12);}
+placePlayerAtSafeSpawn();
 function nearestCar(){return cars.map(car=>({car,d:car.group.position.distanceTo(player.position)})).sort((a,b)=>a.d-b.d)[0];}
 function nearestNpc(ref=player.position){return npcs.filter(n=>n.hp>0).map(npc=>({npc,d:npc.group.position.distanceTo(ref)})).sort((a,b)=>a.d-b.d)[0];}
 function toggleVehicle(){
