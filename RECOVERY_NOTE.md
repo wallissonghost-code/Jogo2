@@ -1,0 +1,1 @@
+Temporary recovery marker: restoring the last complete runtime after an accidental truncation of game.js. The GLB assets remain in the repository and will be reintegrated only on top of the complete consolidated runtime.
