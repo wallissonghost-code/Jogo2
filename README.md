@@ -1,19 +1,17 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.1.5**
+**Versão atual: Beta 0.2.0**
 
 Protótipo de jogo 3D de mundo aberto urbano.
 
-## Estabilização da Beta 0.1.5
+## Arquitetura estabilizada
 
 - Runtime consolidado em um único `game.js`
-- Removida da execução principal a cadeia `beta015 -> beta014 -> beta012`
-- Removidos `fetch`, substituições textuais e `Blob/import` em runtime da versão ativa
+- Sem cadeia de patches `betaXXX -> betaXXX`
+- Sem substituições textuais/Blob/import dinâmico para alterar versões antigas
 - `index.html` aponta diretamente para `game.js`
-- Tela de carregamento só desaparece após o primeiro frame renderizado
-- Falha de inicialização agora mostra erro explícito na tela em vez de carregar indefinidamente
-- Mantida a versão Beta 0.1.5
-- Arquivos `beta*.js` antigos permanecem apenas como histórico e não são carregados pelo jogo
+- Falhas de inicialização exibem erro explícito
+- Arquivos `beta*.js` antigos permanecem apenas como histórico
 
 ## Recursos atuais
 
@@ -29,8 +27,12 @@ Protótipo de jogo 3D de mundo aberto urbano.
 - Tráfego autônomo e semáforos temporizados
 - Árvores e postes derrubáveis
 - Dano progressivo por atropelamento
-- Guincho físico, roubável e com aproximação de ré
-- Serviço de SAMU para NPCs feridos
+- Guincho físico, roubável, com aproximação de ré e modelo `tow_truck_simple.glb`
+- Serviço de SAMU com médicos ocupando a ambulância e modelo `Bu.glb`
+- Viaturas com modelo `police_car_simple.glb`, policiais armados e sistema de perseguição/procurado
+- Ocupantes saem quando o veículo é roubado e podem tentar recuperar o veículo
+- NPCs podem cometer roubo de veículo e serem tratados como criminosos
+- IA local de percepção, memória e decisão dos NPCs
 
 ## Controles PC
 
@@ -40,10 +42,6 @@ Protótipo de jogo 3D de mundo aberto urbano.
 - `E`: entrar/sair de veículo
 - `Espaço`: pular
 - Arrastar câmera: olhar ao redor
-
-## Arquitetura
-
-A versão ativa usa `index.html -> game.js -> Three.js`. Novas versões não devem modificar código antigo por `replace()` em runtime. Mudanças devem ser feitas no código-fonte consolidado, validadas em branch e só então promovidas para `main`.
 
 ## Tecnologia
 
