@@ -1,0 +1,8 @@
+{
+  "name": "cidade-viva-jogo2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node --check game.js && node scripts/validate.mjs"
+  }
+}

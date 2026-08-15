@@ -1,48 +1,43 @@
 # Cidade Viva — Jogo2
 
-**Versão atual: Beta 0.2.0**
+**Versão ativa: Beta 0.1.9**
 
-Protótipo de jogo 3D de mundo aberto urbano.
+Protótipo 3D de mundo aberto urbano executado diretamente no navegador/GitHub Pages.
 
-## Arquitetura estabilizada
+## Runtime de produção
 
-- Runtime consolidado em um único `game.js`
-- Sem cadeia de patches `betaXXX -> betaXXX`
-- Sem substituições textuais/Blob/import dinâmico para alterar versões antigas
-- `index.html` aponta diretamente para `game.js`
-- Falhas de inicialização exibem erro explícito
-- Arquivos `beta*.js` antigos permanecem apenas como histórico
+A versão ativa usa somente:
 
-## Recursos atuais
+`index.html -> styles.css + game.js -> Three.js`
 
-- Vida, dinheiro e HUD mobile
-- Soco, pistola, bandagem, carregador, reserva e recarga
-- Projéteis visíveis e dano em NPCs/veículos
-- Hitbox de cabeça e corpo
-- Correr, agachar, deitar e pular
-- Veículos dirigíveis e roubáveis
-- Motoristas NPC visíveis no tráfego
-- Carcaças destruídas sólidas
-- Integridade, combustível e velocímetro
-- Tráfego autônomo e semáforos temporizados
-- Árvores e postes derrubáveis
-- Dano progressivo por atropelamento
-- Guincho físico, roubável, com aproximação de ré e modelo `tow_truck_simple.glb`
-- Serviço de SAMU com médicos ocupando a ambulância e modelo `Bu.glb`
-- Viaturas com modelo `police_car_simple.glb`, policiais armados e sistema de perseguição/procurado
-- Ocupantes saem quando o veículo é roubado e podem tentar recuperar o veículo
-- NPCs podem cometer roubo de veículo e serem tratados como criminosos
-- IA local de percepção, memória e decisão dos NPCs
+O `game.js` é o runtime consolidado. Builds antigas foram movidas para `legacy/` e existem apenas como histórico.
 
-## Controles PC
+## Estrutura principal
 
-- `WASD`: mover / dirigir
-- `F`: trocar slot
-- `R`: recarregar pistola
-- `E`: entrar/sair de veículo
-- `Espaço`: pular
-- Arrastar câmera: olhar ao redor
+- `game.js` — jogo ativo.
+- `styles.css` — interface ativa.
+- `manifest.webmanifest` — configuração PWA.
+- `assets/vehicles/` — modelos 3D de veículos.
+- `legacy/` — versões antigas; não são executadas.
+- `docs/ARCHITECTURE.md` — regras de arquitetura e evolução.
+- `scripts/validate.mjs` — validação contra regressões estruturais.
 
-## Tecnologia
+## Segurança contra quebra do runtime
 
-HTML/CSS/JavaScript + Three.js, preparado para GitHub Pages e instalação como PWA.
+Antes de aceitar mudanças, `npm run validate` verifica:
+
+- sintaxe de `game.js`;
+- tamanho mínimo do runtime para detectar truncamento acidental;
+- presença do render loop e do guard de inicialização;
+- consistência da versão entre HTML e JavaScript;
+- ausência de `beta*.js` na raiz;
+- ausência de `fetch/replace/Blob/import` usado para montar versões em runtime;
+- presença dos assets principais.
+
+O GitHub Actions executa essa validação automaticamente em pushes e pull requests para `main`.
+
+## Regra de desenvolvimento
+
+Não criar novas versões empilhando patches. Cada mudança deve evoluir o runtime atual ou, futuramente, módulos estáticos em `src/`, sempre com uma build completa e validável.
+
+Consulte `docs/ARCHITECTURE.md` antes de alterações grandes.
