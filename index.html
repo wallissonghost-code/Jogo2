@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>Live Battle Board</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">LIVE INTERACTION • PROTÓTIPO</span>
+        <h1>Live Battle Board</h1>
+        <p>Placar visual para batalhas por votos e presentes em live.</p>
+      </div>
+      <button id="togglePanel" class="panel-btn">Abrir painel</button>
+    </header>
+
+    <section class="stage-wrap">
+      <div class="stage-head">
+        <div>
+          <span class="live-dot"></span>
+          <strong>BATALHA AO VIVO</strong>
+        </div>
+        <div class="round">Rodada 1</div>
+      </div>
+
+      <section id="battleStage" class="battle-stage" aria-live="polite"></section>
+
+      <footer class="gift-legend">
+        <div><span class="gift-icon rose">🌹</span><b>Rosa</b><span>+1 voto</span></div>
+        <div><span class="gift-icon">🎵</span><b>TikTok</b><span>+10 votos</span></div>
+        <div><span class="gift-icon">🎁</span><b>Presente</b><span>+100 votos</span></div>
+      </footer>
+    </section>
+
+    <aside id="controlPanel" class="control-panel" aria-hidden="true">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">CONTROLE</span>
+          <h2>Painel da live</h2>
+        </div>
+        <button id="closePanel" aria-label="Fechar painel">×</button>
+      </div>
+
+      <label class="field">Quantidade de participantes
+        <select id="candidateCount">
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </label>
+
+      <div id="candidateEditor" class="candidate-editor"></div>
+
+      <div class="panel-actions">
+        <button id="applyBtn" class="primary">Aplicar alterações</button>
+        <button id="resetVotesBtn" class="secondary">Zerar votos</button>
+      </div>
+    </aside>
+
+    <div id="panelBackdrop" class="backdrop" hidden></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
