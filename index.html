@@ -13,9 +13,9 @@
       <div>
         <span class="eyebrow">MULTI-VIEW → GLB</span>
         <h1>Ghost 3D Forge</h1>
-        <p>Envie frente e verso obrigatoriamente. Laterais são recomendadas e passam a controlar a profundidade real da malha, reduzindo o efeito “foto extrudada”.</p>
+        <p>Envie frente e verso obrigatoriamente. Para resultado melhor, use também lateral esquerda e direita. O sistema agora cruza as silhuetas em 3D para formar um casco volumétrico, em vez de empilhar fatias planas.</p>
       </div>
-      <div class="badge">MVP MULTI-VIEW • SEM API</div>
+      <div class="badge">VISUAL HULL • SEM API</div>
     </section>
 
     <section class="workspace">
@@ -28,23 +28,23 @@
           <label class="drop" id="rightDrop"><input id="rightInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Lateral D.</strong><span>Recomendado</span><img id="rightPreview" alt="Lateral direita" /></label>
           <label class="drop optional" id="topDrop"><input id="topInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Topo</strong><span>Opcional</span><img id="topPreview" alt="Topo" /></label>
         </div>
-        <p class="hint">Mínimo: frente + verso. Melhor: frente + verso + 2 laterais. O topo ajuda em capacetes, carros e objetos largos.</p>
+        <p class="hint">Ideal: mesmo objeto, mesma escala, fundo transparente ou branco, centralizado e sem perspectiva forte. As imagens são recortadas e centralizadas automaticamente antes da reconstrução.</p>
 
         <h2>2. Reconstrução</h2>
         <label class="field">Qualidade <output id="resOut">96</output>
-          <input id="resolution" type="range" min="48" max="160" step="8" value="96" />
+          <input id="resolution" type="range" min="56" max="128" step="8" value="96" />
         </label>
         <label class="field">Profundidade fallback <output id="depthOut">0.42</output>
-          <input id="depth" type="range" min="0.08" max="1.2" step="0.02" value="0.42" />
+          <input id="depth" type="range" min="0.18" max="1.0" step="0.02" value="0.42" />
         </label>
         <label class="field">Corte do fundo <output id="thresholdOut">24</output>
           <input id="threshold" type="range" min="1" max="200" step="1" value="24" />
         </label>
         <label class="check"><input id="flipBack" type="checkbox" /> Espelhar verso</label>
         <label class="check"><input id="flipRight" type="checkbox" /> Espelhar lateral direita</label>
-        <label class="check"><input id="useIntersection" type="checkbox" checked /> Cruzar silhuetas frente/verso</label>
+        <label class="check"><input id="useIntersection" type="checkbox" checked /> Cruzar vistas por interseção</label>
 
-        <button id="generateBtn" class="primary" disabled>Gerar 3D multi-view</button>
+        <button id="generateBtn" class="primary" disabled>Reconstruir casco 3D</button>
         <button id="downloadBtn" class="secondary" disabled>Baixar GLB</button>
         <p id="status" class="status">Aguardando frente e verso.</p>
       </aside>
@@ -60,9 +60,9 @@
     </section>
 
     <section class="info-grid">
-      <article><b>Verso agora é real</b><span>A face traseira usa a própria textura do verso; não reutiliza mais a frente.</span></article>
-      <article><b>Laterais moldam volume</b><span>As vistas laterais definem a profundidade por altura e diminuem o aspecto em camadas.</span></article>
-      <article><b>Limite atual</b><span>É reconstrução geométrica local. Para nível Meshy ainda precisamos adicionar um modelo de IA de reconstrução/retopologia.</span></article>
+      <article><b>Sem efeito sanfona</b><span>A reconstrução anterior criava profundidade por linha e podia gerar lâminas soltas. Agora o volume é calculado em uma grade 3D.</span></article>
+      <article><b>Autoalinhamento</b><span>Cada vista é recortada pelo objeto e centralizada antes de ser cruzada com as outras.</span></article>
+      <article><b>Limite atual</b><span>Visual Hull melhora muito a forma geral, mas detalhes internos de rosto, roupa e acessórios ainda exigem reconstrução neural para chegar ao nível Meshy.</span></article>
     </section>
   </main>
 
