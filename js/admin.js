@@ -1,11 +1,29 @@
-import {loadState,saveState,resetState,onStateChange} from './state.js';
+import {loadState,resetState} from './state.js';
+import {connectRealtime,publishLocal} from './realtime.js';
 
 const $=id=>document.getElementById(id);
 let state=loadState();
+let statusTimer=null;
 
-function persist(){state=saveState(state);$('connectionStatus').textContent='Sincronizado';setTimeout(()=>$('connectionStatus').textContent='Ao vivo',500)}
+function setStatus(text){
+  clearTimeout(statusTimer);
+  $('connectionStatus').textContent=text;
+}
 
-function fileToDataURL(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)})}
+function persist(){
+  state=publishLocal(state);
+  setStatus('Sincronizando…');
+  statusTimer=setTimeout(()=>$('connectionStatus').textContent='Ao vivo',350);
+}
+
+function fileToDataURL(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 function renderEditors(){
   $('titleInput').value=state.title;
@@ -34,15 +52,22 @@ function bindParticipantEditors(){
     el.querySelectorAll('input[data-field]').forEach(input=>input.addEventListener('change',async()=>{
       const field=input.dataset.field;
       if(field==='image'){
-        const file=input.files?.[0];if(!file)return;
+        const file=input.files?.[0];
+        if(!file)return;
         state.participants[i].image=await fileToDataURL(file);
-      }else if(field==='votes') state.participants[i].votes=Math.max(0,Number(input.value)||0);
-      else state.participants[i][field]=input.value;
-      persist();renderEditors();
+      }else if(field==='votes'){
+        state.participants[i].votes=Math.max(0,Number(input.value)||0);
+      }else{
+        state.participants[i][field]=input.value;
+      }
+      persist();
+      renderEditors();
     }));
+
     el.querySelectorAll('[data-add]').forEach(btn=>btn.addEventListener('click',()=>{
       state.participants[i].votes=Math.max(0,(Number(state.participants[i].votes)||0)+Number(btn.dataset.add));
-      persist();renderEditors();
+      persist();
+      renderEditors();
     }));
   });
 }
@@ -51,9 +76,10 @@ function bindGiftEditors(){
   document.querySelectorAll('.gift-editor').forEach(el=>{
     const i=Number(el.dataset.gift);
     el.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{
-      const f=input.dataset.field;
-      state.gifts[i][f]=f==='value'?Math.max(1,Number(input.value)||1):input.value;
-      persist();renderEditors();
+      const field=input.dataset.field;
+      state.gifts[i][field]=field==='value'?Math.max(1,Number(input.value)||1):input.value;
+      persist();
+      renderEditors();
     }));
   });
 }
@@ -62,7 +88,12 @@ $('titleInput').addEventListener('change',()=>{state.title=$('titleInput').value
 $('countSelect').addEventListener('change',()=>{state.count=Number($('countSelect').value);persist();renderEditors()});
 $('roundInput').addEventListener('change',()=>{state.round=Math.max(1,Number($('roundInput').value)||1);persist()});
 $('resetVotes').addEventListener('click',()=>{state.participants.forEach(p=>p.votes=0);persist();renderEditors()});
-$('resetAll').addEventListener('click',()=>{state=resetState();renderEditors()});
+$('resetAll').addEventListener('click',()=>{state=resetState();persist();renderEditors()});
 
-onStateChange(next=>{state={...state,...next};renderEditors()});
+connectRealtime({
+  role:'admin',
+  onState:next=>{state=next;renderEditors();},
+  onStatus:setStatus
+});
+
 renderEditors();
