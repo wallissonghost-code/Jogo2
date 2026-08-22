@@ -1,5 +1,4 @@
-export const STORAGE_KEY='live-battle-board:v2';
-export const CHANNEL_NAME='live-battle-board-sync';
+export const STORAGE_KEY='live-battle-board:v3';
 
 export const defaults={
   title:'Batalha ao vivo',
@@ -18,39 +17,43 @@ export const defaults={
   ]
 };
 
-const clone=v=>JSON.parse(JSON.stringify(v));
+const clone=value=>JSON.parse(JSON.stringify(value));
+
+export function normalizeState(input={}){
+  const saved=input&&typeof input==='object'?input:{};
+  return {
+    ...clone(defaults),
+    ...saved,
+    count:Math.max(2,Math.min(4,Number(saved.count)||2)),
+    round:Math.max(1,Number(saved.round)||1),
+    participants:clone(defaults.participants).map((participant,index)=>({
+      ...participant,
+      ...(saved.participants?.[index]||{}),
+      votes:Math.max(0,Number(saved.participants?.[index]?.votes)||0)
+    })),
+    gifts:clone(defaults.gifts).map((gift,index)=>({
+      ...gift,
+      ...(saved.gifts?.[index]||{}),
+      value:Math.max(1,Number(saved.gifts?.[index]?.value)||gift.value)
+    }))
+  };
+}
 
 export function loadState(){
   try{
     const raw=localStorage.getItem(STORAGE_KEY);
-    if(!raw)return clone(defaults);
-    const saved=JSON.parse(raw);
-    return {
-      ...clone(defaults),
-      ...saved,
-      participants:clone(defaults.participants).map((p,i)=>({...p,...(saved.participants?.[i]||{})})),
-      gifts:clone(defaults.gifts).map((g,i)=>({...g,...(saved.gifts?.[i]||{})}))
-    };
-  }catch{return clone(defaults)}
+    return raw?normalizeState(JSON.parse(raw)):clone(defaults);
+  }catch{
+    return clone(defaults);
+  }
 }
 
-export function saveState(state){
-  const clean={...state,count:Math.max(2,Math.min(4,Number(state.count)||2)),round:Math.max(1,Number(state.round)||1)};
+export function storeState(state){
+  const clean=normalizeState(state);
   localStorage.setItem(STORAGE_KEY,JSON.stringify(clean));
-  try{new BroadcastChannel(CHANNEL_NAME).postMessage(clean)}catch{}
   return clean;
 }
 
 export function resetState(){
-  const state=clone(defaults);
-  saveState(state);
-  return state;
-}
-
-export function onStateChange(callback){
-  const storageHandler=e=>{if(e.key===STORAGE_KEY&&e.newValue){try{callback(JSON.parse(e.newValue))}catch{}}};
-  addEventListener('storage',storageHandler);
-  let channel=null;
-  try{channel=new BroadcastChannel(CHANNEL_NAME);channel.onmessage=e=>callback(e.data)}catch{}
-  return ()=>{removeEventListener('storage',storageHandler);channel?.close()};
+  return storeState(clone(defaults));
 }
