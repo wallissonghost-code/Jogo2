@@ -11,43 +11,40 @@
   <main class="app-shell">
     <section class="hero">
       <div>
-        <span class="eyebrow">FRONT + BACK → GLB</span>
+        <span class="eyebrow">MULTI-VIEW → GLB</span>
         <h1>Ghost 3D Forge</h1>
-        <p>Envie a imagem PNG da frente e do verso do mesmo modelo. O sistema cruza as silhuetas, cria uma malha 3D fechada e exporta em GLB.</p>
+        <p>Envie frente e verso obrigatoriamente. Laterais são recomendadas e passam a controlar a profundidade real da malha, reduzindo o efeito “foto extrudada”.</p>
       </div>
-      <div class="badge">MVP LOCAL • SEM API</div>
+      <div class="badge">MVP MULTI-VIEW • SEM API</div>
     </section>
 
     <section class="workspace">
       <aside class="panel controls">
         <h2>1. Imagens</h2>
-        <label class="drop" id="frontDrop">
-          <input id="frontInput" type="file" accept="image/png,image/jpeg,image/webp" />
-          <strong>Frente</strong>
-          <span>Toque ou solte o PNG</span>
-          <img id="frontPreview" alt="Prévia frente" />
-        </label>
-        <label class="drop" id="backDrop">
-          <input id="backInput" type="file" accept="image/png,image/jpeg,image/webp" />
-          <strong>Verso</strong>
-          <span>Toque ou solte o PNG</span>
-          <img id="backPreview" alt="Prévia verso" />
-        </label>
+        <div class="view-grid">
+          <label class="drop" id="frontDrop"><input id="frontInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Frente *</strong><span>Enviar imagem</span><img id="frontPreview" alt="Frente" /></label>
+          <label class="drop" id="backDrop"><input id="backInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Verso *</strong><span>Enviar imagem</span><img id="backPreview" alt="Verso" /></label>
+          <label class="drop" id="leftDrop"><input id="leftInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Lateral E.</strong><span>Recomendado</span><img id="leftPreview" alt="Lateral esquerda" /></label>
+          <label class="drop" id="rightDrop"><input id="rightInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Lateral D.</strong><span>Recomendado</span><img id="rightPreview" alt="Lateral direita" /></label>
+          <label class="drop optional" id="topDrop"><input id="topInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Topo</strong><span>Opcional</span><img id="topPreview" alt="Topo" /></label>
+        </div>
+        <p class="hint">Mínimo: frente + verso. Melhor: frente + verso + 2 laterais. O topo ajuda em capacetes, carros e objetos largos.</p>
 
         <h2>2. Reconstrução</h2>
-        <label class="field">Resolução da malha <output id="resOut">72</output>
-          <input id="resolution" type="range" min="32" max="128" step="8" value="72" />
+        <label class="field">Qualidade <output id="resOut">96</output>
+          <input id="resolution" type="range" min="48" max="160" step="8" value="96" />
         </label>
-        <label class="field">Espessura <output id="depthOut">0.42</output>
+        <label class="field">Profundidade fallback <output id="depthOut">0.42</output>
           <input id="depth" type="range" min="0.08" max="1.2" step="0.02" value="0.42" />
         </label>
         <label class="field">Corte do fundo <output id="thresholdOut">24</output>
           <input id="threshold" type="range" min="1" max="200" step="1" value="24" />
         </label>
-        <label class="check"><input id="flipBack" type="checkbox" checked /> Espelhar verso automaticamente</label>
-        <label class="check"><input id="useIntersection" type="checkbox" /> Usar só área comum das duas imagens</label>
+        <label class="check"><input id="flipBack" type="checkbox" /> Espelhar verso</label>
+        <label class="check"><input id="flipRight" type="checkbox" /> Espelhar lateral direita</label>
+        <label class="check"><input id="useIntersection" type="checkbox" checked /> Cruzar silhuetas frente/verso</label>
 
-        <button id="generateBtn" class="primary" disabled>Gerar 3D</button>
+        <button id="generateBtn" class="primary" disabled>Gerar 3D multi-view</button>
         <button id="downloadBtn" class="secondary" disabled>Baixar GLB</button>
         <p id="status" class="status">Aguardando frente e verso.</p>
       </aside>
@@ -63,9 +60,9 @@
     </section>
 
     <section class="info-grid">
-      <article><b>Frente + verso</b><span>Reduz o que a IA precisaria inventar nas partes escondidas.</span></article>
-      <article><b>GLB direto</b><span>Exportação pronta para testar em viewers, engines e pipelines 3D.</span></article>
-      <article><b>Próxima fase</b><span>Adicionar lateral, estimativa de profundidade por IA e retopologia automática.</span></article>
+      <article><b>Verso agora é real</b><span>A face traseira usa a própria textura do verso; não reutiliza mais a frente.</span></article>
+      <article><b>Laterais moldam volume</b><span>As vistas laterais definem a profundidade por altura e diminuem o aspecto em camadas.</span></article>
+      <article><b>Limite atual</b><span>É reconstrução geométrica local. Para nível Meshy ainda precisamos adicionar um modelo de IA de reconstrução/retopologia.</span></article>
     </section>
   </main>
 
