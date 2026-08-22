@@ -13,15 +13,15 @@
       <div>
         <span class="eyebrow">MULTI-VIEW + IA → GLB</span>
         <h1>Ghost 3D Forge</h1>
-        <p>Use o modo local para reconstrução geométrica ou abra o modo IA no Google Colab para gerar um GLB com Stable Fast 3D usando uma GPU temporária.</p>
+        <p>Agora o modo IA usa o Stable Fast 3D oficial no Hugging Face ZeroGPU. Você não precisa manter Colab aberto nem ter GPU própria.</p>
       </div>
-      <div class="badge">LOCAL + COLAB GPU</div>
+      <div class="badge">LOCAL + ZEROGPU</div>
     </section>
 
     <section class="info-grid" style="margin-bottom:18px">
-      <article><b>Modo IA — SF3D</b><span>Roda no Google Colab, instala o modelo automaticamente e gera GLB com textura.</span><a href="https://colab.research.google.com/github/wallissonghost-code/Jogo2/blob/main/colab/Ghost_3D_Forge_SF3D.ipynb" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;color:white;font-weight:700">Abrir gerador IA no Colab ↗</a></article>
-      <article><b>Modo local</b><span>Continua disponível abaixo para frente, verso e laterais sem depender de servidor.</span></article>
-      <article><b>Primeiro teste IA</b><span>Use a vista frontal mais limpa. O SF3D oficial gera a partir de uma imagem por vez.</span></article>
+      <article><b>Modo IA — ZeroGPU</b><span>Abre o Stable Fast 3D oficial no Hugging Face. A GPU é alocada só durante a geração.</span><a href="https://huggingface.co/spaces/stabilityai/stable-fast-3d" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;color:white;font-weight:700">Abrir gerador IA grátis ↗</a></article>
+      <article><b>Sem Colab</b><span>Não precisa instalar dependências, ativar T4 nem deixar notebook rodando. Entre no Space, envie uma imagem e gere o GLB.</span></article>
+      <article><b>Limite grátis</b><span>O ZeroGPU tem cota diária. Contas gratuitas têm poucos minutos de GPU por dia, então use imagens limpas para evitar desperdício.</span></article>
     </section>
 
     <section class="workspace">
@@ -34,7 +34,7 @@
           <label class="drop" id="rightDrop"><input id="rightInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Lateral D.</strong><span>Recomendado</span><img id="rightPreview" alt="Lateral direita" /></label>
           <label class="drop optional" id="topDrop"><input id="topInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Topo</strong><span>Opcional</span><img id="topPreview" alt="Topo" /></label>
         </div>
-        <p class="hint">Ideal: mesmo objeto, mesma escala, fundo transparente ou branco, centralizado e sem perspectiva forte.</p>
+        <p class="hint">O SF3D oficial é single-image. Para o modo IA, use primeiro a melhor vista frontal. O modo local abaixo continua aceitando várias vistas.</p>
 
         <h2>2. Reconstrução local</h2>
         <label class="field">Qualidade <output id="resOut">96</output>
