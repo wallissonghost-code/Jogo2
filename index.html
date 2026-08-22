@@ -11,11 +11,17 @@
   <main class="app-shell">
     <section class="hero">
       <div>
-        <span class="eyebrow">MULTI-VIEW → GLB</span>
+        <span class="eyebrow">MULTI-VIEW + IA → GLB</span>
         <h1>Ghost 3D Forge</h1>
-        <p>Envie frente e verso obrigatoriamente. Para resultado melhor, use também lateral esquerda e direita. O sistema agora cruza as silhuetas em 3D para formar um casco volumétrico, em vez de empilhar fatias planas.</p>
+        <p>Use o modo local para reconstrução geométrica ou abra o modo IA no Google Colab para gerar um GLB com Stable Fast 3D usando uma GPU temporária.</p>
       </div>
-      <div class="badge">VISUAL HULL • SEM API</div>
+      <div class="badge">LOCAL + COLAB GPU</div>
+    </section>
+
+    <section class="info-grid" style="margin-bottom:18px">
+      <article><b>Modo IA — SF3D</b><span>Roda no Google Colab, instala o modelo automaticamente e gera GLB com textura.</span><a href="https://colab.research.google.com/github/wallissonghost-code/Jogo2/blob/main/colab/Ghost_3D_Forge_SF3D.ipynb" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;color:white;font-weight:700">Abrir gerador IA no Colab ↗</a></article>
+      <article><b>Modo local</b><span>Continua disponível abaixo para frente, verso e laterais sem depender de servidor.</span></article>
+      <article><b>Primeiro teste IA</b><span>Use a vista frontal mais limpa. O SF3D oficial gera a partir de uma imagem por vez.</span></article>
     </section>
 
     <section class="workspace">
@@ -28,9 +34,9 @@
           <label class="drop" id="rightDrop"><input id="rightInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Lateral D.</strong><span>Recomendado</span><img id="rightPreview" alt="Lateral direita" /></label>
           <label class="drop optional" id="topDrop"><input id="topInput" type="file" accept="image/png,image/jpeg,image/webp" /><strong>Topo</strong><span>Opcional</span><img id="topPreview" alt="Topo" /></label>
         </div>
-        <p class="hint">Ideal: mesmo objeto, mesma escala, fundo transparente ou branco, centralizado e sem perspectiva forte. As imagens são recortadas e centralizadas automaticamente antes da reconstrução.</p>
+        <p class="hint">Ideal: mesmo objeto, mesma escala, fundo transparente ou branco, centralizado e sem perspectiva forte.</p>
 
-        <h2>2. Reconstrução</h2>
+        <h2>2. Reconstrução local</h2>
         <label class="field">Qualidade <output id="resOut">96</output>
           <input id="resolution" type="range" min="56" max="128" step="8" value="96" />
         </label>
@@ -57,12 +63,6 @@
         <div id="viewer"></div>
         <div class="viewer-tip">Arraste para girar • pinça/scroll para zoom</div>
       </section>
-    </section>
-
-    <section class="info-grid">
-      <article><b>Sem efeito sanfona</b><span>A reconstrução anterior criava profundidade por linha e podia gerar lâminas soltas. Agora o volume é calculado em uma grade 3D.</span></article>
-      <article><b>Autoalinhamento</b><span>Cada vista é recortada pelo objeto e centralizada antes de ser cruzada com as outras.</span></article>
-      <article><b>Limite atual</b><span>Visual Hull melhora muito a forma geral, mas detalhes internos de rosto, roupa e acessórios ainda exigem reconstrução neural para chegar ao nível Meshy.</span></article>
     </section>
   </main>
 
