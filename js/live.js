@@ -1,4 +1,5 @@
-import {loadState,onStateChange} from './state.js';
+import {loadState} from './state.js';
+import {connectRealtime} from './realtime.js';
 
 const $=id=>document.getElementById(id);
 let state=loadState();
@@ -27,4 +28,7 @@ function render(){
 }
 
 render();
-onStateChange(next=>{state={...state,...next};render()});
+connectRealtime({
+  role:'live',
+  onState:next=>{state=next;render();}
+});
