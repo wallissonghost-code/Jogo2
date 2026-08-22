@@ -1,22 +1,38 @@
 # Ghost 3D Forge
 
-Novo projeto do antigo repositório Jogo2. O conteúdo anterior foi substituído por um MVP de reconstrução 3D **Frente + Verso → GLB**.
+Projeto de geração 3D a partir de imagens.
 
-## O que funciona agora
+## Modos atuais
 
-- upload de PNG/JPG/WebP da frente e do verso;
-- espelhamento automático do verso;
-- máscara por transparência/fundo branco;
-- reconstrução local de uma malha 3D fechada por silhueta;
-- preview 3D com Three.js;
-- controle de resolução, espessura e threshold;
-- exportação `.glb` diretamente no navegador;
-- sem servidor e sem API paga nesta primeira fase.
+### 1. Visual Hull local
+- frente + verso obrigatórios;
+- laterais opcionais/recomendadas;
+- roda totalmente no navegador;
+- exporta `.glb`;
+- não usa servidor nem API paga;
+- bom para volume geral, mas limitado em detalhes finos.
 
-## Limite atual
+### 2. IA no Google Colab com Stable Fast 3D
+Foi adicionado o notebook:
 
-Esta versão é um **MVP geométrico**, não um modelo generativo equivalente a Meshy. Ela reconstrói volume a partir das duas silhuetas. Para chegar ao nível profissional, a próxima fase deve adicionar estimativa de profundidade, vista lateral opcional, normal maps, retopologia e um backend com modelo Image-to-3D open-source.
+`colab/Ghost_3D_Forge_SF3D.ipynb`
 
-## Executar
+Abrir diretamente no Colab:
 
-Sirva os arquivos por HTTP (GitHub Pages, Vercel, Firebase Hosting ou servidor local). Abrir apenas o arquivo HTML localmente pode impedir módulos ES por regras do navegador.
+https://colab.research.google.com/github/wallissonghost-code/Jogo2/blob/main/colab/Ghost_3D_Forge_SF3D.ipynb
+
+O notebook:
+1. verifica GPU;
+2. instala o SF3D oficial;
+3. faz login no Hugging Face;
+4. recebe uma imagem;
+5. gera o modelo 3D com textura;
+6. baixa o resultado em GLB.
+
+## Observação importante
+
+O SF3D oficial trabalha com uma imagem por geração. Para o primeiro teste, use a imagem frontal mais limpa e bem centralizada. A reconstrução multi-view real será uma etapa posterior.
+
+## Requisito do SF3D
+
+O modelo oficial da Stability AI é gated no Hugging Face, então é necessário solicitar acesso ao modelo e usar um token de leitura no Colab.
