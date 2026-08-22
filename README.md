@@ -1,43 +1,22 @@
-# Cidade Viva — Jogo2
+# Ghost 3D Forge
 
-**Versão ativa: Beta 0.1.9**
+Novo projeto do antigo repositório Jogo2. O conteúdo anterior foi substituído por um MVP de reconstrução 3D **Frente + Verso → GLB**.
 
-Protótipo 3D de mundo aberto urbano executado diretamente no navegador/GitHub Pages.
+## O que funciona agora
 
-## Runtime de produção
+- upload de PNG/JPG/WebP da frente e do verso;
+- espelhamento automático do verso;
+- máscara por transparência/fundo branco;
+- reconstrução local de uma malha 3D fechada por silhueta;
+- preview 3D com Three.js;
+- controle de resolução, espessura e threshold;
+- exportação `.glb` diretamente no navegador;
+- sem servidor e sem API paga nesta primeira fase.
 
-A versão ativa usa somente:
+## Limite atual
 
-`index.html -> styles.css + game.js -> Three.js`
+Esta versão é um **MVP geométrico**, não um modelo generativo equivalente a Meshy. Ela reconstrói volume a partir das duas silhuetas. Para chegar ao nível profissional, a próxima fase deve adicionar estimativa de profundidade, vista lateral opcional, normal maps, retopologia e um backend com modelo Image-to-3D open-source.
 
-O `game.js` é o runtime consolidado. Builds antigas foram movidas para `legacy/` e existem apenas como histórico.
+## Executar
 
-## Estrutura principal
-
-- `game.js` — jogo ativo.
-- `styles.css` — interface ativa.
-- `manifest.webmanifest` — configuração PWA.
-- `assets/vehicles/` — modelos 3D de veículos.
-- `legacy/` — versões antigas; não são executadas.
-- `docs/ARCHITECTURE.md` — regras de arquitetura e evolução.
-- `scripts/validate.mjs` — validação contra regressões estruturais.
-
-## Segurança contra quebra do runtime
-
-Antes de aceitar mudanças, `npm run validate` verifica:
-
-- sintaxe de `game.js`;
-- tamanho mínimo do runtime para detectar truncamento acidental;
-- presença do render loop e do guard de inicialização;
-- consistência da versão entre HTML e JavaScript;
-- ausência de `beta*.js` na raiz;
-- ausência de `fetch/replace/Blob/import` usado para montar versões em runtime;
-- presença dos assets principais.
-
-O GitHub Actions executa essa validação automaticamente em pushes e pull requests para `main`.
-
-## Regra de desenvolvimento
-
-Não criar novas versões empilhando patches. Cada mudança deve evoluir o runtime atual ou, futuramente, módulos estáticos em `src/`, sempre com uma build completa e validável.
-
-Consulte `docs/ARCHITECTURE.md` antes de alterações grandes.
+Sirva os arquivos por HTTP (GitHub Pages, Vercel, Firebase Hosting ou servidor local). Abrir apenas o arquivo HTML localmente pode impedir módulos ES por regras do navegador.

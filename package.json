@@ -1,8 +1,1 @@
-{
-  "name": "cidade-viva-jogo2",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "validate": "node --check game.js && node scripts/validate.mjs"
-  }
-}
+{"name":"ghost-3d-forge","private":true,"version":"0.1.0","scripts":{"start":"npx serve ."}}

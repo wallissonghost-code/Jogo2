@@ -1,37 +1,75 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-  <meta name="theme-color" content="#05080c" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <title>Cidade Viva — Beta 0.1.9</title>
-  <link rel="stylesheet" href="./styles.css?v=019" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0b" />
+  <title>Ghost 3D Forge</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="loading-screen"><div class="loading-brand">CIDADE VIVA</div><div class="loading-version">BETA 0.1.9</div><div class="loading-line"><span></span></div><div class="loading-tip">Inicializando mundo...</div></div>
-  <div id="landscape-shell"><div id="game"></div>
-    <div id="hud">
-      <div class="version-pill">Beta 0.1.9</div>
-      <div class="brand-card"><strong>CIDADE VIVA</strong><small id="status">A PÉ</small></div>
-      <div class="player-hud"><div class="hud-card money"><span>DINHEIRO</span><b id="money">1.250</b></div><div class="hud-card"><span>VIDA <b id="health-value">100/100</b></span><div class="bar"><i id="health-bar"></i></div></div></div>
-      <div id="ammo-hud" class="ammo-hud hidden"><span>PISTOLA</span><div><b id="ammo-mag">12</b><i>/</i><strong id="ammo-reserve">72</strong></div><small>CARREGADOR / RESERVA</small></div>
-      <div id="vehicle-hud" class="vehicle-hud hidden"><div class="vehicle-speed"><span>VELOCIDADE</span><b id="vehicle-speed">0 km/h</b></div><div class="vehicle-meter"><span>INTEGRIDADE <b id="vehicle-health">100%</b></span><div class="vbar"><i id="vehicle-health-bar"></i></div></div><div class="vehicle-meter fuel"><span>COMBUSTÍVEL <b id="vehicle-fuel">100%</b></span><div class="vbar"><i id="vehicle-fuel-bar"></i></div></div></div>
-      <div id="prompt"></div><div id="crosshair" class="hidden"></div>
-    </div>
-    <div id="mobile-controls">
-      <div id="on-foot-controls">
-        <div id="joystick" class="joystick-zone"><div class="joystick-ring"></div><div id="joystick-knob" class="joystick-knob"></div></div>
-        <div class="left-actions"><button id="action-run" class="action">CORRER</button><button id="action-crouch" class="action">AGACHAR</button><button id="action-prone" class="action">DEITAR</button><button id="action-jump" class="action">PULAR</button></div>
-        <button id="action-slot" class="slot-card"><span>EQUIPADO</span><b id="slot-name">SOCO</b></button>
-        <div class="right-actions"><button id="action-fire" class="action main">GOLPE</button><button id="action-aim" class="action">MIRA</button><button id="action-reload" class="action">RECARREGAR</button><button id="action-bandage" class="action utility">CURAR</button><button id="action-use" class="action">ENTRAR</button><button id="action-slot-mobile" class="action" onclick="document.getElementById('action-slot').click()">TROCAR</button></div>
+  <main class="app-shell">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">FRONT + BACK → GLB</span>
+        <h1>Ghost 3D Forge</h1>
+        <p>Envie a imagem PNG da frente e do verso do mesmo modelo. O sistema cruza as silhuetas, cria uma malha 3D fechada e exporta em GLB.</p>
       </div>
-      <div id="car-controls" class="car-controls hidden"><div class="steer-row"><button data-drive="left">◀</button><button data-drive="right">▶</button></div><div class="pedals"><button data-drive="brake" class="brake">FREIO / RÉ</button><button data-drive="gas" class="gas">ACELERAR</button></div><button id="car-exit" class="car-exit">SAIR</button></div>
-    </div>
-  </div>
-  <script type="module" src="./game.js?v=019"></script>
+      <div class="badge">MVP LOCAL • SEM API</div>
+    </section>
+
+    <section class="workspace">
+      <aside class="panel controls">
+        <h2>1. Imagens</h2>
+        <label class="drop" id="frontDrop">
+          <input id="frontInput" type="file" accept="image/png,image/jpeg,image/webp" />
+          <strong>Frente</strong>
+          <span>Toque ou solte o PNG</span>
+          <img id="frontPreview" alt="Prévia frente" />
+        </label>
+        <label class="drop" id="backDrop">
+          <input id="backInput" type="file" accept="image/png,image/jpeg,image/webp" />
+          <strong>Verso</strong>
+          <span>Toque ou solte o PNG</span>
+          <img id="backPreview" alt="Prévia verso" />
+        </label>
+
+        <h2>2. Reconstrução</h2>
+        <label class="field">Resolução da malha <output id="resOut">72</output>
+          <input id="resolution" type="range" min="32" max="128" step="8" value="72" />
+        </label>
+        <label class="field">Espessura <output id="depthOut">0.42</output>
+          <input id="depth" type="range" min="0.08" max="1.2" step="0.02" value="0.42" />
+        </label>
+        <label class="field">Corte do fundo <output id="thresholdOut">24</output>
+          <input id="threshold" type="range" min="1" max="200" step="1" value="24" />
+        </label>
+        <label class="check"><input id="flipBack" type="checkbox" checked /> Espelhar verso automaticamente</label>
+        <label class="check"><input id="useIntersection" type="checkbox" /> Usar só área comum das duas imagens</label>
+
+        <button id="generateBtn" class="primary" disabled>Gerar 3D</button>
+        <button id="downloadBtn" class="secondary" disabled>Baixar GLB</button>
+        <p id="status" class="status">Aguardando frente e verso.</p>
+      </aside>
+
+      <section class="viewer-wrap">
+        <div class="viewer-head">
+          <div><span class="dot"></span> Preview 3D</div>
+          <div id="meshInfo">0 vértices</div>
+        </div>
+        <div id="viewer"></div>
+        <div class="viewer-tip">Arraste para girar • pinça/scroll para zoom</div>
+      </section>
+    </section>
+
+    <section class="info-grid">
+      <article><b>Frente + verso</b><span>Reduz o que a IA precisaria inventar nas partes escondidas.</span></article>
+      <article><b>GLB direto</b><span>Exportação pronta para testar em viewers, engines e pipelines 3D.</span></article>
+      <article><b>Próxima fase</b><span>Adicionar lateral, estimativa de profundidade por IA e retopologia automática.</span></article>
+    </section>
+  </main>
+
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

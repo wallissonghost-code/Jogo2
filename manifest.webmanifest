@@ -1,9 +1,0 @@
-{
-  "name": "Cidade Viva",
-  "short_name": "Cidade Viva",
-  "start_url": "./",
-  "display": "fullscreen",
-  "orientation": "landscape",
-  "background_color": "#05080c",
-  "theme_color": "#070b10"
-}
