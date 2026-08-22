@@ -1,99 +1,145 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-import { loadState, storeState } from './state.js';
+import { loadState, storeState, normalizeState } from './state.js';
 
 const SUPABASE_URL='https://tkrgihgzhpbnbcpvwxbp.supabase.co';
 const SUPABASE_KEY='sb_publishable_SrWXb2m7dXqSc0-1lMjpCg_VHLrkpwE';
-const ROOM='jogo2-live-battle';
+const STATE_ID='main';
+const LOCAL_CHANNEL='live-battle-board-local';
 
-const supabase=createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false}});
-let channel=null;
-let role='live';
+const supabase=createClient(SUPABASE_URL,SUPABASE_KEY,{
+  auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}
+});
+
+let realtimeChannel=null;
 let stateHandler=()=>{};
 let statusHandler=()=>{};
-let ready=false;
-let queuedState=null;
+let connected=false;
+let writeQueue=Promise.resolve();
 
 function emitStatus(label){
   try{statusHandler(label)}catch{}
 }
 
-async function send(event,payload){
-  if(!channel||!ready)return false;
-  const result=await channel.send({type:'broadcast',event,payload});
-  return result==='ok';
+function deliver(raw){
+  const clean=storeState(normalizeState(raw));
+  try{stateHandler(clean)}catch{}
+  return clean;
 }
 
-async function sendState(state){
+async function readRemote(){
+  const {data,error}=await supabase
+    .from('live_battle_state')
+    .select('data,updated_at')
+    .eq('id',STATE_ID)
+    .maybeSingle();
+  if(error) throw error;
+  if(data?.data && Object.keys(data.data).length){
+    return deliver(data.data);
+  }
+  return null;
+}
+
+async function writeRemote(state){
   const clean=storeState(state);
-  if(!ready){queuedState=clean;return false;}
-  queuedState=null;
-  return send('state',{state:clean,updatedAt:Date.now()});
+  const {error}=await supabase
+    .from('live_battle_state')
+    .upsert({id:STATE_ID,data:clean,updated_at:new Date().toISOString()},{onConflict:'id'});
+  if(error) throw error;
+  return clean;
 }
 
 export function publishState(state){
-  sendState(state).catch(()=>emitStatus('Reconectando…'));
+  const clean=storeState(state);
+  writeQueue=writeQueue
+    .catch(()=>{})
+    .then(async()=>{
+      try{
+        await writeRemote(clean);
+        emitStatus('Ao vivo');
+      }catch(error){
+        console.error('Realtime write failed',error);
+        emitStatus('Reconectando…');
+      }
+    });
+  return clean;
+}
+
+export function publishLocal(state){
+  const clean=storeState(state);
+  try{
+    const channel=new BroadcastChannel(LOCAL_CHANNEL);
+    channel.postMessage(clean);
+    channel.close();
+  }catch{}
+  publishState(clean);
+  return clean;
 }
 
 export function connectRealtime(options={}){
-  role=options.role==='admin'?'admin':'live';
+  const role=options.role==='admin'?'admin':'live';
   stateHandler=typeof options.onState==='function'?options.onState:()=>{};
   statusHandler=typeof options.onStatus==='function'?options.onStatus:()=>{};
-
   emitStatus('Conectando…');
-  channel=supabase.channel(ROOM,{config:{broadcast:{self:false},presence:{key:role}}});
 
-  channel
-    .on('broadcast',{event:'state'},({payload})=>{
-      if(!payload?.state)return;
-      const clean=storeState(payload.state);
-      stateHandler(clean);
-    })
-    .on('broadcast',{event:'sync-request'},()=>{
-      if(role==='admin')sendState(loadState());
-    })
-    .subscribe(async status=>{
-      if(status==='SUBSCRIBED'){
-        ready=true;
-        emitStatus('Ao vivo');
-        if(queuedState)await sendState(queuedState);
-        if(role==='admin')await sendState(loadState());
-        else await send('sync-request',{at:Date.now()});
-      }else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
-        ready=false;
-        emitStatus('Reconectando…');
-      }else if(status==='CLOSED'){
-        ready=false;
-        emitStatus('Offline');
-      }
-    });
+  let stopped=false;
 
-  const localChannel='BroadcastChannel' in window?new BroadcastChannel('live-battle-board-local'):null;
+  const start=async()=>{
+    try{
+      const remote=await readRemote();
+      if(!remote && role==='admin') await writeRemote(loadState());
+    }catch(error){
+      console.error('Initial sync failed',error);
+      emitStatus('Reconectando…');
+    }
+
+    if(stopped) return;
+
+    realtimeChannel=supabase
+      .channel('jogo2-live-battle-db')
+      .on(
+        'postgres_changes',
+        {event:'*',schema:'public',table:'live_battle_state',filter:`id=eq.${STATE_ID}`},
+        payload=>{
+          const next=payload?.new?.data;
+          if(next) deliver(next);
+        }
+      )
+      .subscribe(status=>{
+        if(status==='SUBSCRIBED'){
+          connected=true;
+          emitStatus('Ao vivo');
+        }else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){
+          connected=false;
+          emitStatus('Reconectando…');
+        }else if(status==='CLOSED'){
+          connected=false;
+          emitStatus('Offline');
+        }
+      });
+  };
+
+  start();
+
+  const localChannel='BroadcastChannel' in window?new BroadcastChannel(LOCAL_CHANNEL):null;
   if(localChannel){
     localChannel.onmessage=e=>{
-      const clean=storeState(e.data);
-      stateHandler(clean);
+      if(e.data) deliver(e.data);
     };
   }
 
   const storageHandler=e=>{
     if(e.key==='live-battle-board:v3'&&e.newValue){
-      try{stateHandler(storeState(JSON.parse(e.newValue)))}catch{}
+      try{deliver(JSON.parse(e.newValue))}catch{}
     }
   };
   addEventListener('storage',storageHandler);
 
   return ()=>{
+    stopped=true;
     removeEventListener('storage',storageHandler);
     localChannel?.close();
-    if(channel)supabase.removeChannel(channel);
-    channel=null;
-    ready=false;
+    if(realtimeChannel) supabase.removeChannel(realtimeChannel);
+    realtimeChannel=null;
+    connected=false;
   };
-}
-
-export function publishLocal(state){
-  const clean=storeState(state);
-  try{new BroadcastChannel('live-battle-board-local').postMessage(clean)}catch{}
-  publishState(clean);
-  return clean;
 }
