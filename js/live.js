@@ -1,10 +1,10 @@
-import {loadState,storeState,resetState,normalizeState} from './state.js';
+const {loadState,storeState,resetState,normalizeState}=await import('./state.js?v='+encodeURIComponent(window.JOGO2_VERSION||'dev'));
 
 const $=id=>document.getElementById(id);
 const CODE_KEY='jogo2-liveplus-panel-code';
 const HUD_RULES_KEY='jogo2-liveplus-hud-rules';
 const GAME_ID='jogo2';
-const VERSION='1.2.0';
+const VERSION=window.JOGO2_VERSION||'Beta0.0.5';
 let state=loadState();
 let session=null;
 let rules=[];
@@ -184,4 +184,4 @@ function initPanelUI(){
 try{const cached=JSON.parse(localStorage.getItem(HUD_RULES_KEY)||'[]');if(Array.isArray(cached))rules=cached}catch{}
 render();
 initPanelUI();
-window.Jogo2Universal={connect:connectPanel,getState:()=>normalizeState(state),executeCommand,manifest,getRules:()=>rules.slice(),renderHud};
+window.Jogo2Universal={connect:connectPanel,getState:()=>normalizeState(state),executeCommand,manifest,getRules:()=>rules.slice(),renderHud,version:VERSION};
