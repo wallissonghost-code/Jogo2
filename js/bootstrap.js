@@ -6,6 +6,19 @@
   const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css'];
   const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
 
+  function syncViewport(){
+    const vv=window.visualViewport;
+    const h=Math.max(320,Math.round(vv?.height||window.innerHeight||document.documentElement.clientHeight||0));
+    const w=Math.max(280,Math.round(vv?.width||window.innerWidth||document.documentElement.clientWidth||0));
+    document.documentElement.style.setProperty('--app-vh',h+'px');
+    document.documentElement.style.setProperty('--app-vw',w+'px');
+  }
+  syncViewport();
+  window.visualViewport?.addEventListener('resize',syncViewport,{passive:true});
+  window.visualViewport?.addEventListener('scroll',syncViewport,{passive:true});
+  window.addEventListener('resize',syncViewport,{passive:true});
+  window.addEventListener('orientationchange',()=>setTimeout(syncViewport,120),{passive:true});
+
   function withVersion(path,version){
     const u=new URL(path,location.href);
     u.searchParams.set('v',version);
@@ -42,7 +55,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.8';
+    let version='Beta0.0.9';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
@@ -73,6 +86,7 @@
     await loadScript('https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js');
     for(const path of LOCAL_SCRIPTS)await loadScript(withVersion(path,version));
     await import(withVersion('./js/live.js',version));
+    syncViewport();
   }
 
   boot().catch(error=>{
