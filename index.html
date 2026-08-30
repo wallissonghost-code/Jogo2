@@ -17,12 +17,13 @@
   <main class="live-shell">
     <header class="battle-topbar">
       <div class="live-brand">
-        <span class="eyebrow">LIVE BATTLE BOARD</span>
+        <span class="brand-mark" aria-hidden="true">LB</span>
+        <span class="eyebrow">LIVE BATTLE ARENA</span>
         <h1 id="battleTitle">Batalha ao vivo</h1>
         <div id="universalStatus" class="universal-status" data-kind="">Carregando versão…</div>
       </div>
       <div class="live-header-actions">
-        <button id="panelConnectButton" class="panel-connect-button" type="button">🔗 Conectar painel</button>
+        <button id="panelConnectButton" class="panel-connect-button" type="button" aria-label="Conectar ao painel universal"><span class="panel-connect-label">Painel</span></button>
         <div class="round-badge">Rodada <span id="roundNumber">1</span></div>
       </div>
     </header>
@@ -55,7 +56,7 @@
     </div>
   </div>
 
-  <div class="app-version" id="appVersion">Beta0.0.5</div>
+  <div class="app-version" id="appVersion">Beta0.0.13</div>
   <script src="./js/bootstrap.js"></script>
 </body>
 </html>
