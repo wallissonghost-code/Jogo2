@@ -14,14 +14,34 @@
         <span class="eyebrow">LIVE BATTLE BOARD</span>
         <h1 id="battleTitle">Batalha ao vivo</h1>
       </div>
-      <div class="round-badge">Rodada <span id="roundNumber">1</span></div>
+      <div class="live-header-actions">
+        <button id="panelConnectButton" class="panel-connect-button" type="button">🔗 Conectar painel</button>
+        <div class="round-badge">Rodada <span id="roundNumber">1</span></div>
+      </div>
     </header>
 
+    <div id="universalStatus" class="universal-status" data-kind="">Aguardando painel universal</div>
     <section id="battleGrid" class="battle-grid" aria-live="polite"></section>
-
     <footer class="gift-legend" id="giftLegend"></footer>
   </main>
 
+  <div class="panel-modal" id="panelModal" aria-hidden="true">
+    <div class="panel-modal-card" role="dialog" aria-modal="true" aria-labelledby="panelModalTitle">
+      <div class="panel-modal-head">
+        <div><span class="eyebrow">LIVE+ UNIVERSAL</span><h2 id="panelModalTitle">Conectar ao painel Daniel</h2></div>
+        <button id="closePanelModal" class="panel-modal-close" type="button" aria-label="Fechar">×</button>
+      </div>
+      <p>Digite o código de 8 caracteres gerado no Painel Universal.</p>
+      <div class="pair-row">
+        <input id="panelCode" class="pair-input" inputmode="text" autocomplete="off" maxlength="9" placeholder="ABCD-1234" />
+        <button id="connectPanel" class="pair-button" type="button">CONECTAR</button>
+      </div>
+      <div class="pair-message" id="pairMessage">Aguardando código do painel.</div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+  <script src="./js/liveplus-game-session.js"></script>
   <script type="module" src="./js/live.js"></script>
 </body>
 </html>
