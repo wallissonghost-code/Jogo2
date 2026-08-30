@@ -3,7 +3,7 @@
 
   const VERSION_KEY='jogo2-app-version';
   const VERSION_URL='./version.json?ts='+Date.now();
-  const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css','./assets/mobile-layout-v11.css'];
+  const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css','./assets/mobile-layout-v11.css','./assets/fullscreen-v12.css'];
   const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
 
   function syncViewport(){
@@ -55,7 +55,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.11';
+    let version='Beta0.0.12';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
@@ -86,6 +86,7 @@
     await loadScript('https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js');
     for(const path of LOCAL_SCRIPTS)await loadScript(withVersion(path,version));
     await import(withVersion('./js/live.js',version));
+    await loadScript(withVersion('./js/fullscreen-hud-v12.js',version));
     syncViewport();
   }
 
