@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#090b10" />
+  <meta name="theme-color" content="#05070d" />
   <title>Live Battle Board</title>
   <link rel="stylesheet" href="./assets/styles.css" />
   <link rel="stylesheet" href="./assets/liveplus.css" />
 </head>
 <body class="live-page">
   <main class="live-shell">
-    <header class="live-header">
-      <div>
+    <header class="battle-topbar">
+      <div class="live-brand">
         <span class="eyebrow">LIVE BATTLE BOARD</span>
         <h1 id="battleTitle">Batalha ao vivo</h1>
+        <div id="universalStatus" class="universal-status" data-kind="">Aguardando painel universal</div>
       </div>
       <div class="live-header-actions">
         <button id="panelConnectButton" class="panel-connect-button" type="button">🔗 Conectar painel</button>
@@ -21,9 +22,19 @@
       </div>
     </header>
 
-    <div id="universalStatus" class="universal-status" data-kind="">Aguardando painel universal</div>
-    <section id="battleGrid" class="battle-grid" aria-live="polite"></section>
-    <footer class="gift-legend" id="giftLegend"></footer>
+    <section class="battle-stage">
+      <div class="stage-glow stage-glow-red"></div>
+      <div class="stage-glow stage-glow-blue"></div>
+      <div class="versus-core" aria-hidden="true">
+        <span>VS</span>
+      </div>
+      <section id="battleGrid" class="battle-grid" aria-live="polite"></section>
+    </section>
+
+    <section class="gift-zone">
+      <div class="gift-zone-title">ENVIE PRESENTES E SOME PONTOS</div>
+      <footer class="gift-legend" id="giftLegend"></footer>
+    </section>
   </main>
 
   <div class="panel-modal" id="panelModal" aria-hidden="true">
