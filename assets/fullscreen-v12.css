@@ -1,0 +1,96 @@
+/* Jogo2 Beta0.0.12 · fullscreen mobile layout inspired by Caos Live */
+@media(max-width:700px){
+  html,body,.live-page{width:100%;height:100%;min-height:100%;margin:0;overflow:hidden!important;overscroll-behavior:none;background:#05070d}
+  .live-page{height:var(--app-vh,100dvh)!important;min-height:var(--app-vh,100dvh)!important}
+  .live-shell{width:100%;height:var(--app-vh,100dvh)!important;min-height:0!important;max-height:none!important;margin:0!important;padding:max(5px,env(safe-area-inset-top)) max(7px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(7px,env(safe-area-inset-left))!important;display:grid!important;grid-template-rows:54px minmax(0,1fr)!important;gap:5px!important;overflow:hidden!important}
+
+  /* compact game HUD, not a webpage header */
+  .battle-topbar{height:54px!important;min-height:54px!important;margin:0!important;padding:0 2px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:7px!important;border:0!important;background:transparent!important}
+  .live-brand{min-width:0;display:grid!important;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto;align-items:center;column-gap:7px;row-gap:1px}
+  .live-brand .eyebrow{display:none!important}
+  .live-brand h1{grid-column:1/-1;margin:0!important;font-size:clamp(17px,5.4vw,22px)!important;line-height:1!important;letter-spacing:-.035em!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
+  .universal-status{grid-column:1/-1;justify-self:start;min-height:16px!important;max-width:170px;padding:0 7px!important;border-color:#253149!important;background:#080e18c9!important;font-size:6px!important;line-height:1!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.82}
+  .universal-status:before{width:5px!important;height:5px!important;flex:0 0 5px}
+  .live-header-actions{width:auto!important;padding:0!important;display:flex!important;align-items:center!important;gap:5px!important}
+  .panel-connect-button{width:34px!important;height:34px!important;min-width:34px!important;min-height:34px!important;padding:0!important;border-radius:10px!important;font-size:0!important;display:grid!important;place-items:center!important;background:#0a1220e8!important;border:1px solid #2d405a!important;box-shadow:inset 0 1px 0 #ffffff0b!important}
+  .panel-connect-button:before{content:'🔗';font-size:15px;line-height:1}
+  .round-badge{height:34px!important;min-height:34px!important;padding:0 9px!important;border-radius:10px!important;display:flex!important;align-items:center!important;gap:3px!important;font-size:9px!important;white-space:nowrap;background:#0a101ae8!important}
+
+  /* game surface occupies everything below the compact top HUD */
+  .battle-stage{--lp-hud-height:31%;position:relative!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;margin:0!important;border-radius:14px!important;overflow:hidden!important;display:grid!important;grid-template-rows:minmax(0,69%) minmax(0,31%)!important;align-items:stretch!important;background:linear-gradient(180deg,#090f19,#050912)!important}
+  .battle-stage:before{z-index:0!important}
+  .stage-glow{z-index:0!important}
+  .battle-stage:after{content:''!important;position:absolute!important;left:50%!important;top:0!important;bottom:auto!important;width:2px!important;height:69%!important;transform:translateX(-50%)!important;z-index:1!important;opacity:.62!important;background:linear-gradient(180deg,transparent 3%,#f23666 23%,#9a4dff 52%,#2f8cff 80%,transparent 98%)!important;box-shadow:0 0 12px #7b4dff88!important;pointer-events:none!important}
+
+  .battle-grid{position:relative!important;inset:auto!important;grid-row:1!important;width:100%!important;height:100%!important;min-height:0!important;padding:43px 8px 8px!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;align-items:stretch!important;z-index:2!important;overflow:hidden!important}
+  .candidate-card{height:100%!important;min-height:0!important;max-height:none!important;padding:5px!important;display:grid!important;grid-template-rows:minmax(0,1fr) auto auto auto auto!important;align-content:stretch!important;overflow:hidden!important;border-radius:12px!important;background:#080d15f7!important;box-shadow:inset 0 1px 0 #ffffff06!important;z-index:2!important}
+  .candidate-media{width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;aspect-ratio:auto!important;margin:0 0 4px!important;border-radius:10px!important;background:#090f18!important;isolation:isolate!important;overflow:hidden!important;z-index:3!important}
+  .candidate-media img{width:100%!important;height:100%!important;object-fit:cover!important;position:relative!important;z-index:2!important}
+  .avatar-fallback{height:100%!important;min-height:0!important;font-size:clamp(28px,11vw,50px)!important;position:relative!important;z-index:2!important}
+  .candidate-card h2{margin:0 0 1px!important;min-height:0!important;font-size:clamp(8px,2.6vw,11px)!important;line-height:1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .vote-number,.vote-number.vote-fit-1,.vote-number.vote-fit-2,.vote-number.vote-fit-3,.vote-number.vote-fit-4{margin:0!important;font-size:clamp(20px,6.6vw,29px)!important;line-height:.9!important;white-space:nowrap!important}
+  .vote-label{margin-top:2px!important;font-size:5px!important;line-height:1!important;letter-spacing:.16em!important}
+  .progress{height:4px!important;margin-top:4px!important}
+
+  .battle-timer{top:0!important;min-width:112px!important;padding:4px 9px 5px!important;border-radius:0 0 13px 13px!important;z-index:7!important}
+  .battle-timer span{font-size:5px!important;letter-spacing:.12em!important;margin-bottom:2px!important}
+  .battle-timer strong{font-size:17px!important;line-height:1!important}
+  .versus-core{left:50%!important;top:34.5%!important;width:38px!important;height:38px!important;border-radius:10px!important;z-index:6!important}
+  .versus-core span{font-size:14px!important}
+
+  /* LIVE+ occupies the entire lower third, exactly like a game HUD */
+  #livePlusBattleHud.lp-battle-hud{grid-row:2!important;position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;transform:none!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;border-top:1px solid #ffffff16!important;border-radius:0!important;background:#050a12f2!important;box-shadow:0 -10px 28px #0006!important;backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);z-index:8!important;overflow:hidden!important;display:grid!important;grid-template-rows:16px minmax(0,1fr)!important}
+  #livePlusBattleHud[hidden]{display:grid!important}
+  .lp-hud-title{min-height:16px!important;height:16px!important;margin:0!important;padding:2px 6px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:5.5px!important;letter-spacing:.15em!important;background:#070d16!important;color:#8998ad!important}
+  .lp-hud-title:before,.lp-hud-title:after{display:none!important}
+  .lp-hud-grid{height:100%!important;min-height:0!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:0!important;overflow:hidden!important}
+  .lp-hud-side{height:100%!important;min-height:0!important;padding:4px!important;border:0!important;border-radius:0!important;background:linear-gradient(180deg,rgba(11,17,27,.98),rgba(4,8,14,.99))!important;overflow:hidden!important}
+  .lp-hud-side:nth-child(odd){border-right:1px solid #ffffff12!important;box-shadow:inset 22px 0 34px rgba(255,48,82,.035)!important}
+  .lp-hud-side:nth-child(even){box-shadow:inset -22px 0 34px rgba(45,125,255,.04)!important}
+  .lp-hud-side:before{height:2px!important}
+  .lp-hud-head{height:15px!important;min-height:15px!important;margin:0 0 3px!important;padding:0 2px!important;display:flex!important;align-items:center!important;justify-content:center!important}
+  .lp-hud-head b{font-size:6.5px!important;letter-spacing:.11em!important;max-width:100%!important}
+  .lp-hud-head small{display:none!important}
+  .lp-rule-list{height:calc(100% - 18px)!important;min-height:0!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:minmax(0,1fr)!important;gap:3px!important;overflow:hidden!important}
+  .lp-rule-card{min-width:0!important;max-width:none!important;height:100%!important;min-height:0!important;padding:3px!important;display:grid!important;grid-template-columns:22px minmax(0,1fr)!important;gap:4px!important;align-items:center!important;border-radius:7px!important;background:#07101ad9!important;border-color:#ffffff0d!important;overflow:hidden!important}
+  .lp-rule-icon{width:22px!important;height:22px!important;min-width:22px!important;border-radius:6px!important;font-size:13px!important}
+  .lp-rule-copy b{font-size:6.3px!important;line-height:1.05!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .lp-rule-copy small{font-size:5px!important;line-height:1.05!important;margin-top:1px!important;white-space:normal!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
+  .lp-rule-empty{grid-column:1/-1!important;height:100%!important;min-height:0!important;display:grid!important;place-items:center!important;padding:4px!important;border:1px dashed #25344a!important;border-radius:7px!important;font-size:5.5px!important;letter-spacing:.06em!important;color:#617087!important;text-transform:uppercase!important}
+
+  /* Old floating-HUD spacing must never affect the fullscreen grid. */
+  .battle-stage:has(.lp-battle-hud:not([hidden])) .battle-grid{padding-bottom:8px!important}
+  .app-version{right:5px!important;bottom:max(3px,env(safe-area-inset-bottom))!important;font-size:6px!important;padding:2px 5px!important;z-index:20!important;opacity:.65}
+}
+
+@media(max-width:430px){
+  .live-shell{grid-template-rows:50px minmax(0,1fr)!important}
+  .battle-topbar{height:50px!important;min-height:50px!important}
+  .live-brand h1{font-size:18px!important}
+  .universal-status{max-width:135px!important;font-size:5.5px!important}
+  .panel-connect-button,.round-badge{height:31px!important;min-height:31px!important}
+  .panel-connect-button{width:31px!important;min-width:31px!important}
+  .round-badge{font-size:8px!important;padding:0 7px!important}
+  .battle-stage{--lp-hud-height:32%;grid-template-rows:minmax(0,68%) minmax(0,32%)!important}
+  .battle-stage:after{height:68%!important}
+  .battle-grid{padding:39px 5px 6px!important;gap:12px!important}
+  .versus-core{top:34%!important;width:34px!important;height:34px!important}
+  .versus-core span{font-size:12px!important}
+  .battle-timer{min-width:104px!important}
+  .candidate-card{padding:4px!important}
+  .candidate-card h2{font-size:9px!important}
+  .vote-number,.vote-number.vote-fit-1,.vote-number.vote-fit-2,.vote-number.vote-fit-3,.vote-number.vote-fit-4{font-size:clamp(18px,6vw,25px)!important}
+  .lp-rule-icon{width:20px!important;height:20px!important;min-width:20px!important}
+}
+
+@media(orientation:landscape) and (max-height:600px){
+  .live-shell{grid-template-rows:40px minmax(0,1fr)!important;padding:4px 6px!important;gap:3px!important}
+  .battle-topbar{height:40px!important;min-height:40px!important;grid-template-columns:minmax(0,1fr) auto!important}
+  .live-brand{display:flex!important;align-items:center!important;gap:7px!important}.live-brand h1{font-size:15px!important}.universal-status{max-width:120px!important}
+  .panel-connect-button,.round-badge{height:28px!important;min-height:28px!important}.panel-connect-button{width:28px!important;min-width:28px!important}
+  .battle-stage{grid-template-rows:minmax(0,64%) minmax(0,36%)!important}.battle-stage:after{height:64%!important}
+  .battle-grid{padding:31px 24px 5px!important;gap:56px!important}
+  .candidate-card{grid-template-columns:minmax(0,1fr) 72px!important;grid-template-rows:auto auto auto auto!important;column-gap:5px!important}.candidate-media{grid-row:1/-1!important;margin:0!important}.candidate-card h2{grid-column:2!important}.vote-number{grid-column:2!important}.vote-label{grid-column:2!important}.progress{grid-column:2!important}
+  .versus-core{top:32%!important;width:32px!important;height:32px!important}.battle-timer{min-width:98px!important;padding:3px 8px 4px!important}.battle-timer strong{font-size:14px!important}
+  #livePlusBattleHud.lp-battle-hud{grid-template-rows:13px minmax(0,1fr)!important}.lp-hud-title{height:13px!important;min-height:13px!important;font-size:5px!important}.lp-rule-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}.lp-rule-card{grid-template-columns:18px minmax(0,1fr)!important}.lp-rule-icon{width:18px!important;height:18px!important;min-width:18px!important}
+}
