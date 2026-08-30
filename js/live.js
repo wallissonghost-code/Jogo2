@@ -165,7 +165,7 @@ async function connectPanel(){
   const code=cleanCode(input?.value||'');
   if(input)input.value=formatCode(code);
   if(code.length!==8){setPairStatus('Digite os 8 caracteres do painel.','err');return}
-  if(!window.Peer||!window.LivePlusGameSession){setPairStatus('Cliente LIVE+ não carregou.','err');return}
+  if(!window.LivePlusGameSession){setPairStatus('Cliente LIVE+ não carregou.','err');return}
   try{localStorage.setItem(CODE_KEY,formatCode(code))}catch{}
   if(session)session.disconnect();
   session=new LivePlusGameSession({storageKey:'jogo2-liveplus-token',manifest});
