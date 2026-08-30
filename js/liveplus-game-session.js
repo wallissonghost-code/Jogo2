@@ -14,5 +14,7 @@ class Jogo2LivePlusSession extends SDK.Session{
   constructor(options={}){super({...options,stateTransformer:compactJogo2State})}
 }
 window.LivePlusGameSession=Jogo2LivePlusSession;
-window.Jogo2LivePlusAdapter={version:'1.0.0',sdkVersion:SDK.version};
+SDK.installPasteBridge('panelCode');
+window.addEventListener('pageshow',()=>SDK.installPasteBridge('panelCode'));
+window.Jogo2LivePlusAdapter={version:'1.0.1',sdkVersion:SDK.version};
 })();
