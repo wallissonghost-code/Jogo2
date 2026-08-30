@@ -55,7 +55,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.9';
+    let version='Beta0.0.10';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
