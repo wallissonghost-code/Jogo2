@@ -3,9 +3,10 @@
 
   const VERSION_KEY='jogo2-app-version';
   const VERSION_URL='./version.json?ts='+Date.now();
-  const LIVEPLUS_SDK='https://wallissonghost-code.github.io/projeto-daniel/sdk/liveplus-game-sdk-v1.js';
+  const LIVEPLUS_SDK_REMOTE='https://wallissonghost-code.github.io/projeto-daniel/sdk/liveplus-game-sdk-v1.js';
+  const LIVEPLUS_SDK_LOCAL='./js/vendor/liveplus-game-sdk-v1.js';
   const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css','./assets/mobile-layout-v11.css','./assets/fullscreen-v12.css','./assets/fullscreen-v13-fixes.css'];
-  const LOCAL_SCRIPTS=[LIVEPLUS_SDK,'./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
+  const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
 
   function syncViewport(){
     const vv=window.visualViewport;
@@ -47,6 +48,22 @@
     });
   }
 
+  async function loadLivePlusSDK(version){
+    if(window.LivePlusGameSDK?.Session)return 'existing';
+    const remote=withVersion(LIVEPLUS_SDK_REMOTE,version);
+    try{
+      await loadScript(remote);
+      if(window.LivePlusGameSDK?.Session)return 'remote';
+      throw new Error('SDK remoto carregou sem inicializar.');
+    }catch(error){
+      console.warn('[Jogo2] SDK LIVE+ remoto indisponível; usando fallback local.',error);
+    }
+    const local=withVersion(LIVEPLUS_SDK_LOCAL,version);
+    await loadScript(local);
+    if(!window.LivePlusGameSDK?.Session)throw new Error('Cliente LIVE+ não inicializou nem pelo fallback local.');
+    return 'local';
+  }
+
   async function clearSiteCaches(){
     if(!('caches' in window))return;
     try{
@@ -56,7 +73,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.18';
+    let version='Beta0.0.19';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
@@ -84,6 +101,8 @@
     }
 
     await Promise.all(LOCAL_STYLES.map(path=>loadStyle(withVersion(path,version))));
+    const sdkSource=await loadLivePlusSDK(version);
+    window.JOGO2_LIVEPLUS_SDK_SOURCE=sdkSource;
     for(const path of LOCAL_SCRIPTS)await loadScript(withVersion(path,version));
     await import(withVersion('./js/live.js',version));
     await loadScript(withVersion('./js/fullscreen-hud-v12.js',version));
