@@ -80,4 +80,5 @@ class LivePlusGameSession extends EventTarget{
   disconnect(){this.manual=true;this.code='';this.cleanupConnection();this.emit('transport',{status:'offline'})}
 }
 window.LivePlusGameSession=LivePlusGameSession;
+const relayScript=document.createElement('script');relayScript.src='./js/liveplus-server-relay-client.js?v=relay-1.3.0';relayScript.async=false;document.body.appendChild(relayScript);
 })();
