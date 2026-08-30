@@ -4,7 +4,7 @@ const $=id=>document.getElementById(id);
 const CODE_KEY='jogo2-liveplus-panel-code';
 const HUD_RULES_KEY='jogo2-liveplus-hud-rules';
 const GAME_ID='jogo2';
-const VERSION=window.JOGO2_VERSION||'Beta0.0.5';
+const VERSION=window.JOGO2_VERSION||'Beta0.0.6';
 let state=loadState();
 let session=null;
 let rules=[];
@@ -37,6 +37,8 @@ const manifest={
     {id:'remove_votes',label:'Remover votos',icon:'➖',description:'Remove votos de um participante.',params:[{id:'participant',label:'PARTICIPANTE',type:'select',default:'0',options:participantOptions},{id:'amount',label:'VOTOS',type:'number',min:1,max:1000000,default:1}]},
     {id:'set_votes',label:'Definir votos',icon:'🎯',description:'Define o total exato de votos.',params:[{id:'participant',label:'PARTICIPANTE',type:'select',default:'0',options:participantOptions},{id:'amount',label:'TOTAL',type:'number',min:0,max:100000000,default:0}]},
     {id:'set_name',label:'Alterar participante',icon:'👤',description:'Altera o nome exibido.',params:[{id:'participant',label:'PARTICIPANTE',type:'select',default:'0',options:participantOptions},{id:'name',label:'NOME',type:'text',placeholder:'Novo nome'}]},
+    {id:'set_image',label:'Alterar imagem do participante',icon:'🖼️',hudSide:'admin',description:'Envia uma imagem para qualquer um dos 4 participantes e salva no navegador do jogo.',params:[{id:'participant',label:'PARTICIPANTE',type:'select',default:'0',options:participantOptions},{id:'image',label:'IMAGEM',type:'image'}]},
+    {id:'clear_image',label:'Remover imagem do participante',icon:'🗑️',hudSide:'admin',description:'Remove a imagem salva do participante escolhido.',params:[{id:'participant',label:'PARTICIPANTE',type:'select',default:'0',options:participantOptions}]},
     {id:'set_round',label:'Definir rodada',icon:'🔢',description:'Altera o número da rodada.',params:[{id:'round',label:'RODADA',type:'number',min:1,max:9999,default:1}]},
     {id:'next_round',label:'Próxima rodada',icon:'⏭️',description:'Avança uma rodada.',params:[]},
     {id:'set_title',label:'Alterar título',icon:'✏️',description:'Altera o título principal.',params:[{id:'title',label:'TÍTULO',type:'text',placeholder:'Batalha ao vivo'}]},
@@ -58,6 +60,12 @@ function setPairStatus(text,kind=''){
 }
 
 function participantIndex(value){return Math.max(0,Math.min(3,Number(value)||0))}
+function validImage(value=''){
+  const image=String(value||'').trim();
+  if(image.startsWith('data:image/'))return image;
+  if(/^https:\/\//i.test(image))return image;
+  return '';
+}
 function ruleParticipant(rule){return participantIndex(rule?.actionParams?.participant)}
 function effectLabel(rule){
   const p=rule?.actionParams&&typeof rule.actionParams==='object'?rule.actionParams:{};
@@ -137,6 +145,8 @@ function executeCommand(data={}){
     case 'remove_votes':{const i=participantIndex(p.participant);next.participants[i].votes=Math.max(0,(Number(next.participants[i].votes)||0)-Math.max(0,Number(p.amount)||0));scope='votes';break}
     case 'set_votes':{const i=participantIndex(p.participant);next.participants[i].votes=Math.max(0,Number(p.amount)||0);scope='votes';break}
     case 'set_name':{const i=participantIndex(p.participant);next.participants[i].name=String(p.name||'').trim()||next.participants[i].name;scope='participants';break}
+    case 'set_image':{const i=participantIndex(p.participant),image=validImage(p.image);if(!image)return false;next.participants[i].image=image;scope='participants';break}
+    case 'clear_image':{const i=participantIndex(p.participant);next.participants[i].image='';scope='participants';break}
     case 'set_round':next.round=Math.max(1,Number(p.round)||1);scope='round';break;
     case 'next_round':next.round=Math.max(1,(Number(next.round)||1)+1);scope='round';break;
     case 'set_title':next.title=String(p.title||'').trim()||'Batalha ao vivo';scope='title';break;
