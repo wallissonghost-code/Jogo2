@@ -1,0 +1,59 @@
+/* Jogo2 Beta0.0.13 · viewport lock + premium top HUD */
+@media(max-width:700px){
+  html,body{width:100%!important;height:100%!important;min-height:100%!important;margin:0!important;overflow:hidden!important;background:#04070c!important}
+  body.live-page{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;overflow:hidden!important;overscroll-behavior:none!important}
+  .live-shell{position:fixed!important;inset:0!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:max(5px,env(safe-area-inset-top)) 0 0!important;display:grid!important;grid-template-rows:64px minmax(0,1fr)!important;gap:0!important;overflow:hidden!important;background:linear-gradient(180deg,#070c14 0,#05080e 14%,#04070c 100%)!important}
+
+  .battle-topbar{position:relative!important;height:64px!important;min-height:64px!important;margin:0!important;padding:7px 9px 6px 10px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:8px!important;border:0!important;border-bottom:1px solid rgba(120,145,178,.12)!important;background:linear-gradient(180deg,rgba(12,19,29,.98),rgba(5,10,17,.96))!important;box-shadow:0 8px 26px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025)!important;overflow:hidden!important}
+  .battle-topbar:before{content:'';position:absolute;left:0;top:0;width:38%;height:1px;background:linear-gradient(90deg,#ff3f6e,rgba(151,84,255,.55),transparent);opacity:.9}
+  .battle-topbar:after{content:'';position:absolute;right:0;top:0;width:38%;height:1px;background:linear-gradient(270deg,#3e8cff,rgba(151,84,255,.55),transparent);opacity:.9}
+
+  .live-brand{min-width:0!important;display:grid!important;grid-template-columns:35px minmax(0,1fr)!important;grid-template-rows:auto auto!important;align-items:center!important;column-gap:8px!important;row-gap:1px!important}
+  .brand-mark{grid-row:1/3;width:35px;height:35px;border:1px solid #334258;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#111b29,#070d15);box-shadow:inset 0 1px 0 #ffffff0b;color:#e9eef7;font-size:9px;font-weight:1000;letter-spacing:.08em}
+  .live-brand .eyebrow{display:block!important;grid-column:2!important;margin:0!important;color:#728198!important;font-size:5.5px!important;font-weight:900!important;letter-spacing:.2em!important;line-height:1!important}
+  .live-brand h1{grid-column:2!important;margin:1px 0 0!important;max-width:100%!important;font-size:clamp(16px,4.7vw,20px)!important;line-height:.98!important;font-weight:950!important;letter-spacing:-.035em!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;text-transform:uppercase!important;text-shadow:0 5px 18px #000!important}
+  .universal-status{position:absolute!important;left:53px!important;bottom:3px!important;max-width:150px!important;min-height:11px!important;height:11px!important;padding:0!important;border:0!important;background:transparent!important;color:#617087!important;font-size:5px!important;font-weight:800!important;letter-spacing:.04em!important;opacity:.75!important;gap:4px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .universal-status:before{width:4px!important;height:4px!important;flex:0 0 4px!important;box-shadow:none!important}
+  .universal-status[data-kind="ok"]{color:#70b99a!important}.universal-status[data-kind="warn"]{color:#b89a5d!important}.universal-status[data-kind="err"]{color:#b86f7c!important}
+
+  .live-header-actions{width:auto!important;padding:0!important;display:flex!important;align-items:center!important;gap:5px!important}
+  .panel-connect-button{position:relative!important;width:auto!important;height:28px!important;min-width:0!important;min-height:28px!important;padding:0 8px 0 25px!important;border:1px solid #29384b!important;border-radius:9px!important;background:linear-gradient(180deg,#0d1520,#080e16)!important;color:#8f9daf!important;box-shadow:inset 0 1px 0 #ffffff08!important;font-size:6.5px!important;font-weight:900!important;letter-spacing:.09em!important;text-transform:uppercase!important;opacity:.82!important;cursor:pointer!important}
+  .panel-connect-button:before,.panel-connect-button:after{content:''!important;position:absolute!important;width:8px!important;height:5px!important;border:1.4px solid #73839a!important;border-radius:5px!important;background:transparent!important;transform:rotate(-35deg)!important}
+  .panel-connect-button:before{left:8px!important;top:9px!important}
+  .panel-connect-button:after{left:12px!important;top:12px!important}
+  .panel-connect-button:active{transform:scale(.97)!important;opacity:1!important}
+  .panel-connect-button .panel-connect-label{display:inline!important}
+  .round-badge{height:28px!important;min-height:28px!important;padding:0 8px!important;border-radius:9px!important;border-color:#29384b!important;background:linear-gradient(180deg,#0d1520,#080e16)!important;color:#b8c2d0!important;font-size:7px!important;font-weight:800!important;box-shadow:inset 0 1px 0 #ffffff08!important}
+  .round-badge span{color:#f2f5f9!important;font-weight:950!important}
+
+  /* The arena owns every remaining pixel. No document space can exist below it. */
+  .battle-stage{grid-row:2!important;align-self:stretch!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;margin:0!important;border-left:0!important;border-right:0!important;border-bottom:0!important;border-radius:0!important;overflow:hidden!important;grid-template-rows:minmax(0,67%) minmax(0,33%)!important}
+  .battle-stage:after{height:67%!important}
+  .battle-grid{height:100%!important;min-height:0!important;padding:39px 7px 6px!important;gap:14px!important}
+  #livePlusBattleHud.lp-battle-hud{height:100%!important;min-height:0!important;max-height:none!important;border-bottom:0!important;margin:0!important;padding:0!important;overflow:hidden!important}
+  .lp-hud-grid,.lp-hud-side,.lp-rule-list{min-height:0!important;height:100%!important}
+  .lp-hud-side{padding-bottom:max(4px,env(safe-area-inset-bottom))!important}
+  .app-version{position:absolute!important;right:4px!important;bottom:max(2px,env(safe-area-inset-bottom))!important;z-index:30!important}
+}
+
+@media(max-width:430px){
+  .live-shell{grid-template-rows:59px minmax(0,1fr)!important}
+  .battle-topbar{height:59px!important;min-height:59px!important;padding:6px 7px 5px 8px!important}
+  .live-brand{grid-template-columns:31px minmax(0,1fr)!important;column-gap:7px!important}
+  .brand-mark{width:31px;height:31px;border-radius:9px;font-size:8px!important}
+  .live-brand h1{font-size:17px!important}
+  .universal-status{left:46px!important;bottom:2px!important;max-width:123px!important;font-size:4.8px!important}
+  .panel-connect-button{height:26px!important;min-height:26px!important;padding:0 6px 0 22px!important;font-size:6px!important}
+  .panel-connect-button:before{left:7px!important;top:8px!important}.panel-connect-button:after{left:11px!important;top:11px!important}
+  .round-badge{height:26px!important;min-height:26px!important;padding:0 7px!important;font-size:6.5px!important}
+  .battle-stage{grid-template-rows:minmax(0,66%) minmax(0,34%)!important}.battle-stage:after{height:66%!important}
+  .battle-grid{padding:37px 5px 5px!important;gap:11px!important}
+}
+
+@media(orientation:landscape) and (max-height:600px){
+  .live-shell{grid-template-rows:42px minmax(0,1fr)!important;padding:0!important}
+  .battle-topbar{height:42px!important;min-height:42px!important;padding:4px 7px!important}
+  .live-brand{grid-template-columns:28px minmax(0,1fr)!important}.brand-mark{width:28px;height:28px!important}.live-brand h1{font-size:14px!important}.live-brand .eyebrow{display:none!important}.universal-status{display:none!important}
+  .panel-connect-button,.round-badge{height:25px!important;min-height:25px!important}
+  .battle-stage{grid-template-rows:minmax(0,62%) minmax(0,38%)!important}.battle-stage:after{height:62%!important}
+}
