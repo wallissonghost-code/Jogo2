@@ -3,8 +3,9 @@
 
   const VERSION_KEY='jogo2-app-version';
   const VERSION_URL='./version.json?ts='+Date.now();
+  const LIVEPLUS_SDK='https://wallissonghost-code.github.io/projeto-daniel/sdk/liveplus-game-sdk-v1.js';
   const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css','./assets/mobile-layout-v11.css','./assets/fullscreen-v12.css','./assets/fullscreen-v13-fixes.css'];
-  const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/liveplus-server-relay-client.js','./js/timer.js','./js/ui-polish.js'];
+  const LOCAL_SCRIPTS=[LIVEPLUS_SDK,'./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
 
   function syncViewport(){
     const vv=window.visualViewport;
@@ -55,7 +56,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.15';
+    let version='Beta0.0.18';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
@@ -83,7 +84,6 @@
     }
 
     await Promise.all(LOCAL_STYLES.map(path=>loadStyle(withVersion(path,version))));
-    await loadScript('https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js');
     for(const path of LOCAL_SCRIPTS)await loadScript(withVersion(path,version));
     await import(withVersion('./js/live.js',version));
     await loadScript(withVersion('./js/fullscreen-hud-v12.js',version));
