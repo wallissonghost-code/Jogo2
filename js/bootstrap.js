@@ -4,7 +4,7 @@
   const VERSION_KEY='jogo2-app-version';
   const VERSION_URL='./version.json?ts='+Date.now();
   const LOCAL_STYLES=['./assets/styles.css','./assets/liveplus.css','./assets/timer.css','./assets/game-viewport.css','./assets/ui-polish.css','./assets/mobile-layout-v11.css','./assets/fullscreen-v12.css','./assets/fullscreen-v13-fixes.css'];
-  const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/timer.js','./js/ui-polish.js'];
+  const LOCAL_SCRIPTS=['./js/liveplus-game-session.js','./js/liveplus-server-relay-client.js','./js/timer.js','./js/ui-polish.js'];
 
   function syncViewport(){
     const vv=window.visualViewport;
@@ -55,7 +55,7 @@
   }
 
   async function boot(){
-    let version='Beta0.0.13';
+    let version='Beta0.0.15';
     try{
       const response=await fetch(VERSION_URL,{cache:'no-store',headers:{'cache-control':'no-cache'}});
       if(response.ok){
