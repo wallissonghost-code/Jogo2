@@ -3,7 +3,7 @@ import {loadState,storeState,resetState,normalizeState} from './state.js';
 const $=id=>document.getElementById(id);
 const CODE_KEY='jogo2-liveplus-panel-code';
 const GAME_ID='jogo2';
-const VERSION='1.1.0';
+const VERSION='1.1.1';
 let state=loadState();
 let session=null;
 
@@ -12,11 +12,6 @@ const participantOptions=[
   {value:'1',label:'Candidato B'},
   {value:'2',label:'Candidato C'},
   {value:'3',label:'Candidato D'}
-];
-const giftOptions=[
-  {value:'0',label:'Presente 1'},
-  {value:'1',label:'Presente 2'},
-  {value:'2',label:'Presente 3'}
 ];
 
 const manifest={
@@ -34,7 +29,6 @@ const manifest={
     {id:'next_round',label:'Próxima rodada',icon:'⏭️',description:'Avança uma rodada.',params:[]},
     {id:'set_title',label:'Alterar título',icon:'✏️',description:'Altera o título principal.',params:[{id:'title',label:'TÍTULO',type:'text',placeholder:'Batalha ao vivo'}]},
     {id:'set_count',label:'Quantidade de participantes',icon:'👥',description:'Define quantos participantes aparecem.',params:[{id:'count',label:'QUANTIDADE',type:'number',min:2,max:4,default:2}]},
-    {id:'set_gift',label:'Configurar presente',icon:'🎁',description:'Altera nome, ícone e valor de um presente.',params:[{id:'gift',label:'PRESENTE',type:'select',default:'0',options:giftOptions},{id:'name',label:'NOME',type:'text',placeholder:'Presente'},{id:'icon',label:'ÍCONE',type:'text',placeholder:'🎁'},{id:'value',label:'VALOR EM VOTOS',type:'number',min:1,max:1000000,default:1}]},
     {id:'reset_votes',label:'Zerar votos',icon:'🧹',description:'Zera os votos de todos os participantes.',params:[]},
     {id:'reset_all',label:'Resetar batalha',icon:'♻️',description:'Restaura o estado padrão do Jogo2.',params:[]}
   ]
@@ -62,11 +56,10 @@ function render(){
     const media=p.image?`<img src="${p.image}" alt="${p.name}">`:`<div class="avatar-fallback">${initials(p.name)}</div>`;
     return `<article class="candidate-card" style="--accent:${p.accent}"><div class="candidate-media">${media}</div><h2>${p.name}</h2><div class="vote-number">${votes.toLocaleString('pt-BR')}</div><div class="vote-label">VOTOS</div><div class="progress"><span style="width:${pct}%"></span></div></article>`;
   }).join('');
-  $('giftLegend').innerHTML=state.gifts.map(g=>`<div class="gift-chip"><span class="gift-icon">${g.icon}</span><div><b>${g.name}</b><small>+${Number(g.value)||0} voto${Number(g.value)===1?'':'s'}</small></div></div>`).join('');
 }
 
 function stateSnapshot(scope='battle'){
-  return {scope,gameId:GAME_ID,version:VERSION,state:normalizeState(state),title:state.title,round:state.round,count:state.count,participants:state.participants,gifts:state.gifts};
+  return {scope,gameId:GAME_ID,version:VERSION,state:normalizeState(state),title:state.title,round:state.round,count:state.count,participants:state.participants};
 }
 function sendState(scope='battle'){session?.sendState(stateSnapshot(scope))}
 function commitState(next,scope='battle',eventName='state_changed'){
@@ -76,7 +69,6 @@ function commitState(next,scope='battle',eventName='state_changed'){
   session?.sendEvent({gameId:GAME_ID,event:eventName,scope,round:state.round});
 }
 function participantIndex(value){return Math.max(0,Math.min(3,Number(value)||0))}
-function giftIndex(value){return Math.max(0,Math.min(2,Number(value)||0))}
 
 function executeCommand(data={}){
   const action=String(data.action||data.command||'');
@@ -92,7 +84,6 @@ function executeCommand(data={}){
     case 'next_round':next.round=Math.max(1,(Number(next.round)||1)+1);scope='round';break;
     case 'set_title':next.title=String(p.title||'').trim()||'Batalha ao vivo';scope='title';break;
     case 'set_count':next.count=Math.max(2,Math.min(4,Number(p.count)||2));scope='participants';break;
-    case 'set_gift':{const i=giftIndex(p.gift);if(String(p.name||'').trim())next.gifts[i].name=String(p.name).trim();if(String(p.icon||'').trim())next.gifts[i].icon=String(p.icon).trim();next.gifts[i].value=Math.max(1,Number(p.value)||next.gifts[i].value||1);scope='gifts';break}
     case 'reset_votes':next.participants.forEach(x=>x.votes=0);scope='votes';break;
     case 'reset_all':state=resetState();render();sendState('reset');session?.sendEvent({gameId:GAME_ID,event:'reset_all',scope:'reset'});return true;
     default:return false;
